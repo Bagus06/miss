@@ -11,30 +11,16 @@
 	<form action="" method="post" enctype="multipart/form-data">
 		<div class="panel panel-default card card-default">
 			<div class="panel-heading card-header">
-				<?php if (empty($data['kelas'])) : ?>
+				<?php if (empty($data['jurusan'])) : ?>
 					tambah
 				<?php else : ?>
 					ubah
-				<?php endif ?> kelas
+				<?php endif ?> jurusan
 			</div>
 			<div class="panel-body card-body">
 				<div class="form-group">
-					<label for="kelas_id">kelas</label>
-					<select name="kelas_id" class="form-control">
-						<?php if (!empty($j)) : ?>
-							<?php foreach ($j as $key => $value) : ?>
-								<?php $selected = ''; ?>
-								<?php if (in_array($value['id'], $data['kelas_id'])) : ?>
-									<?php $selected = 'selected'; ?>
-								<?php endif ?>
-								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['level'] ?></option>
-							<?php endforeach ?>
-						<?php endif ?>
-					</select>
-				</div>
-				<div class="form-group">
 					<label for="nama">nama</label>
-					<input type="text" class="form-control" name="nama" placeholder="nama" value="<?php echo @$data['kelas']['nama'] ?>">
+					<input type="text" class="form-control" name="nama" placeholder="nama jurusan" value="<?php echo @$jursan['nama'] ?>">
 				</div>
 			</div>
 			<div class="panel-footer card-footer">
@@ -71,18 +57,20 @@
 					</tfoot>
 					<tbody>
 						<?php $i = 1; ?>
-						<?php if (!empty($data['data'])) : ?>
-							<?php foreach ($data['data'] as $key => $value) : ?>
-								<tr>
-									<td><?php echo $i ?></td>
-									<td><?php echo $value['level'] ?> <?php echo $value['nama'] ?></td>
-									<td>
-										<a href="<?php echo base_url('kelas/edit/' . $value['id']) ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> edit</a>
-										|
-										<a href="<?php echo base_url('kelas/delete/' . $value['id']) ?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['nama'] ?>')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
-									</td>
-								</tr>
-								<?php $i++; ?>
+						<?php if (!empty($kelas)) : ?>
+							<?php foreach ($kelas as $key => $value) : ?>
+								<?php foreach ($jurusan as $key => $fjurusan) : ?>
+									<tr>
+										<td><?php echo $i ?></td>
+										<td><?php echo $value['level'] ?> <?php echo $fjurusan['nama'] ?></td>
+										<td>
+											<a href="<?php echo base_url('kelas/edit/' . $fjurusan['id']) ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> edit</a>
+											|
+											<a href="<?php echo base_url('kelas/delete/' . $fjurusan['id']) ?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $fjurusan['nama'] ?>')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
+										</td>
+									</tr>
+									<?php $i++; ?>
+								<?php endforeach ?>
 							<?php endforeach ?>
 						<?php endif ?>
 					</tbody>

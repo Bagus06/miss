@@ -2,14 +2,6 @@
 
 class Kelas_model extends CI_Model
 {
-	public function all()
-	{
-		$this->db->select('jurusan.*, kelas.level');
-		$this->db->from('jurusan');
-		$this->db->join('kelas', 'kelas.id = jurusan.kelas_id');
-		$query = $this->db->get()->result_array();;
-		return $query;
-	}
 	public function upload($file = '', $mode = '')
 	{
 		if (!empty($file['tmp_name'])) {
@@ -26,37 +18,26 @@ class Kelas_model extends CI_Model
 	{
 		$msg = [];
 		if (!empty($this->input->post())) {
-			$msg = ['status' => 'danger', 'msg' => 'kelas gagal disimpan'];
+			$msg = ['status' => 'danger', 'msg' => 'jurusan gagal disimpan'];
 			$data = $this->input->post();
 			if (!empty($id)) {
-				$exist = $this->db->get_where('jurusan', ['kelas_id' => $data['kelas_id']])->result_array();
-				foreach ($exist as $key => $value) {
-					if ($value['nama'] == $data['nama']) {
-						$exist = [$exist];
-					} else {
-						$exist = [];
-					}
-				}
-				if (empty($exist)) {
+				$this->db->select('id');
+				$exist = $this->db->get_where('jurusan', ['nama' => $data['nama']])->row_array();
+				$current_user = $this->db->get_where('jurusan', ['id' => $id])->row_array();
+				if ($current_user['id'] == $exist['id'] || empty($exist)) {
 					$this->db->where('id', $id);
 					if ($this->db->update('jurusan', $data)) {
-						$msg = ['status' => 'success', 'msg' => 'kelas berhasil disimpan'];
+						$msg = ['status' => 'success', 'msg' => 'jurusan berhasil disimpan'];
 					}
 				} else {
 					$msg['msgs'][] = 'nama sudah ada';
 				}
 			} else {
-				$exist = $this->db->get_where('jurusan', ['kelas_id' => $data['kelas_id']])->result_array();
-				foreach ($exist as $key => $value) {
-					if ($value['nama'] == $data['nama']) {
-						$exist = [$exist];
-					} else {
-						$exist = [];
-					}
-				}
+				$this->db->select('id');
+				$exist = $this->db->get_where('jurusan', ['nama' => $data['nama']])->row_array();
 				if (empty($exist)) {
 					if ($this->db->insert('jurusan', $data)) {
-						$msg = ['status' => 'success', 'msg' => 'kelas berhasil disimpan'];
+						$msg = ['status' => 'success', 'msg' => 'jurusan berhasil disimpan'];
 					}
 				} else {
 					$msg['msgs'][] = 'nama sudah ada';
@@ -81,5 +62,9 @@ class Kelas_model extends CI_Model
 	public function kelas()
 	{
 		return $this->db->get('kelas')->result_array();
+	}
+	public function jurusan()
+	{
+		return $this->db->get('jurusan')->result_array();
 	}
 }

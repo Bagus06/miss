@@ -4,10 +4,7 @@ class th_ajaran_model extends CI_Model
 {
 	public function all()
 	{
-		$this->db->select('th_ajaran.*, kelas.level');
-		$this->db->from('th_ajaran');
-		$this->db->join('kelas', 'kelas.id = th_ajaran.kelas_id');
-		$query = $this->db->get()->result_array();;
+		$query = $this->db->get('th_ajaran')->result_array();;
 		return $query;
 	}
 	public function upload($file = '', $mode = '')

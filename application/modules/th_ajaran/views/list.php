@@ -44,7 +44,6 @@
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>kelas</th>
 							<th>tahun ajaran</th>
 							<th>action</th>
 						</tr>
@@ -52,7 +51,6 @@
 					<tfoot>
 						<tr>
 							<th>No</th>
-							<th>kelas</th>
 							<th>tahun ajaran</th>
 							<th>action</th>
 						</tr>
@@ -63,14 +61,11 @@
 							<?php foreach ($data['data'] as $key => $value) : ?>
 								<tr>
 									<td><?php echo $i ?></td>
-									<td><?php echo $value['level'] ?></td>
 									<td><?php echo $value['title'] ?></td>
 									<td>
 										<a href="<?php echo base_url('th_ajaran/edit/' . $value['id']) ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> edit</a>
 										|
 										<a href="<?php echo base_url('th_ajaran/delete/' . $value['id']) ?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['title'] ?>')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
-										|
-										<a href="<?php echo base_url('th_ajaran/' . $value['id']) ?>" onclick="if(confirm('apakah anda yakin untuk update tahun pelajaran <?php echo $value['title'] ?>')){}else{return false;};" class="btn btn-sm btn-info"><i class="fa fa-sync-alt"></i> th ajaran baru</a>
 									</td>
 								</tr>
 								<?php $i++; ?>

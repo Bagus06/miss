@@ -4,7 +4,8 @@ class Siswa_model extends CI_Model
 {
 	public function all()
 	{
-		return $this->db->get('siswa')->result_array();
+		$query = $this->db->get('siswa')->result_array();
+		return $query;
 	}
 
 	public function save($id = 0)
@@ -103,10 +104,10 @@ class Siswa_model extends CI_Model
 	}
 	public function kelas()
 	{
-		$this->db->select('jurusan.*, kelas.level');
-		$this->db->from('jurusan');
-		$this->db->join('kelas', 'kelas.id = jurusan.kelas_id');
-		$query = $this->db->get()->result_array();
-		return $query;
+		return $this->db->get('kelas')->result_array();
+	}
+	public function jurusan()
+	{
+		return $this->db->get('jurusan')->result_array();
 	}
 }

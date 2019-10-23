@@ -131,8 +131,7 @@ class Kelas extends CI_Controller
 	public function list()
 	{
 		$data = $this->kelas_model->save();
-		$data['data'] = $this->kelas_model->all();
-		$this->load->view('index', ['data' => $data, 'j' => $this->kelas_model->kelas()]);
+		$this->load->view('index', ['data' => $data, 'kelas' => $this->kelas_model->kelas(), 'jurusan' => $this->kelas_model->jurusan()]);
 	}
 
 	public function edit($id = 0)
@@ -140,7 +139,7 @@ class Kelas extends CI_Controller
 		if (!empty($id)) {
 			$data = $this->kelas_model->save($id);
 			$data['kelas'] = $this->kelas_model->kelas();
-			$this->load->view('index', ['data' => $data, 'j' => $this->kelas_model->kelas()]);
+			$this->load->view('index', ['data' => $data]);
 		}
 	}
 	public function delete($id = 0)

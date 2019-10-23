@@ -39,7 +39,21 @@
 								<?php if ($value['id'] == $data['data']['kelas_id']) : ?>
 									<?php $selected = 'selected'; ?>
 								<?php endif ?>
-								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['level'] ?> <?php echo $value['nama'] ?></option>
+								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['level'] ?></option>
+							<?php endforeach ?>
+						<?php endif ?>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="jurusan_id">Jurusan</label>
+					<select name="jurusan_id" class="form-control">
+						<?php if (!empty($jurusan)) : ?>
+							<?php foreach ($jurusan as $key => $value) : ?>
+								<?php $selected = ''; ?>
+								<?php if ($value['id'] == $data['data']['kelas_id']) : ?>
+									<?php $selected = 'selected'; ?>
+								<?php endif ?>
+								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>> <?php echo $value['nama'] ?></option>
 							<?php endforeach ?>
 						<?php endif ?>
 					</select>

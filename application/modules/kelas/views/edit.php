@@ -19,20 +19,6 @@
 			</div>
 			<div class="panel-body card-body">
 				<div class="form-group">
-					<label for="kelas_id">kelas</label>
-					<select name="kelas_id" class="form-control">
-						<?php if (!empty($j)) : ?>
-							<?php foreach ($j as $key => $value) : ?>
-								<?php $selected = ''; ?>
-								<?php if ($value['id'] == $data['data']['kelas_id']) : ?>
-									<?php $selected = 'selected'; ?>
-								<?php endif ?>
-								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['level'] ?></option>
-							<?php endforeach ?>
-						<?php endif ?>
-					</select>
-				</div>
-				<div class="form-group">
 					<label for="nama">nama</label>
 					<input type="text" class="form-control" name="nama" placeholder="nama" value="<?php echo @$data['data']['nama'] ?>">
 				</div>

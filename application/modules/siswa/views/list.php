@@ -13,6 +13,7 @@
 							<th>No</th>
 							<th>nama</th>
 							<th>kelas</th>
+							<th>jurusan</th>
 							<th>nis</th>
 							<th>nisn</th>
 							<th>gender</th>
@@ -27,6 +28,7 @@
 							<th>No</th>
 							<th>nama</th>
 							<th>kelas</th>
+							<th>jurusan</th>
 							<th>nis</th>
 							<th>nisn</th>
 							<th>gender</th>
@@ -43,15 +45,8 @@
 								<tr>
 									<td><?php echo $i ?></td>
 									<td><?php echo $value['nama'] ?></td>
-									<td>
-										<?php if (!empty($kelas)) : ?>
-											<?php foreach ($kelas as $key => $values) : ?>
-												<?php if ($values['id'] == $value['kelas_id']) : ?>
-													<?php echo $values['level']; ?> <?php echo $values['nama']; ?>
-												<?php endif ?>
-											<?php endforeach ?>
-										<?php endif ?>
-									</td>
+									<td><?php echo $kelas[$value['kelas_id'] - 1]['level'] ?></td>
+									<td><?php echo $jurusan[$value['jurusan_id']]['nama'] ?></td>
 									<td><?php echo $value['nis'] ?></td>
 									<td><?php echo $value['nisn'] ?></td>
 									<td><?php echo $gender[$value['gender']] ?></td>

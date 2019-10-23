@@ -31,13 +31,13 @@ class Siswa extends CI_Controller
 	public function list()
 	{
 		$data = $this->siswa_model->all();
-		$this->load->view('index', ['data' => $data, 'gender' => ['perempuan', 'laki-laki'], 'kelas' =>  $this->siswa_model->kelas()]);
+		$this->load->view('index', ['data' => $data, 'gender' => ['perempuan', 'laki-laki'], 'kelas' => $this->siswa_model->kelas(), 'jurusan' => $this->siswa_model->jurusan()]);
 	}
 
 	public function edit($id = 0)
 	{
 
 		$data = $this->siswa_model->save($id);
-		$this->load->view('index', ['data' => $data, 'gender' => ['0' => ['id' => '0', 'title' => 'Perempuan'], '1' => ['id' => '1', 'title' => 'Laki-laki']], 'th_ajaran' => $this->siswa_model->th_ajaran(), 'kelas' => $this->siswa_model->kelas()]);
+		$this->load->view('index', ['data' => $data, 'gender' => ['0' => ['id' => '0', 'title' => 'Perempuan'], '1' => ['id' => '1', 'title' => 'Laki-laki']], 'th_ajaran' => $this->siswa_model->th_ajaran(), 'kelas' => $this->siswa_model->kelas(), 'jurusan' => $this->siswa_model->jurusan()]);
 	}
 }
