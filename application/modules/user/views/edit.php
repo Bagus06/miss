@@ -1,22 +1,22 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 
 <div class="col-md-12">
-	<?php if (!empty($data['msg'])) : ?>
-		<?php echo alert($data['status'], $data['msg']) ?>
-		<?php if (!empty($data['msgs'])) : ?>
-			<?php foreach ($data['msgs'] as $key => $value) : ?>
-				<?php echo alert($data['status'], $value) ?>
-			<?php endforeach ?>
+	<?php if (!empty($data['msg'])): ?>
+		<?php echo alert($data['status'],$data['msg']) ?>
+		<?php if (!empty($data['msgs'])): ?>
+			<?php foreach ($data['msgs'] as $key => $value): ?>
+					<?php echo alert($data['status'], $value) ?>
+				<?php endforeach ?>	
 		<?php endif ?>
 	<?php endif ?>
 	<form action="" method="post" enctype="multipart/form-data">
 		<div class="panel panel-default card card-default">
 			<div class="panel-heading card-header">
-				<?php if (empty($data['user'])) : ?>
-					tambah
-				<?php else : ?>
-					ubah
-				<?php endif ?> user
+				<?php if (empty($data['user'])): ?>
+				 	tambah
+				 	<?php else: ?>
+				 	ubah
+				 <?php endif ?> user
 			</div>
 			<div class="panel-body card-body">
 				<div class="form-group">
@@ -42,14 +42,14 @@
 				<div class="form-group">
 					<label for="role">role</label>
 					<select class="custom-select" name="role[]" multiple>
-						<?php if (!empty($role)) : ?>
-							<?php foreach ($role as $key => $value) : ?>
-								<?php $selected = ''; ?>
-								<?php if (in_array($value['id'], $data['user_role'])) : ?>
-									<?php $selected = 'selected'; ?>
-								<?php endif ?>
+						<?php if (!empty($role)): ?>
+						  <?php foreach ($role as $key => $value): ?>
+						  	<?php $selected = ''; ?>
+						  	<?php if (in_array($value['id'], $data['user_role'])): ?>
+						  		<?php $selected = 'selected'; ?>
+						  	<?php endif ?>
 								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
-							<?php endforeach ?>
+						  <?php endforeach ?>
 						<?php endif ?>
 					</select>
 				</div>

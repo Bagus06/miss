@@ -6,6 +6,7 @@ $route['login']                = 'user/login';
 $route['logout']               = 'user/logout';
 $route['kelas']                = 'kelas/list';
 $route['siswa']                = 'siswa/list';
+$route['guru']                = 'guru/list';
 $route['th_ajaran']            = 'th_ajaran/list';
 $route['404_override']         = '';
 $route['translate_uri_dashes'] = FALSE;

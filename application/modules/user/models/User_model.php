@@ -45,8 +45,6 @@ class User_model extends CI_model
 		if (!empty($data)) {
 			$user = $this->db->query('SELECT * FROM user WHERE username = ?', $data['username'])->row_array();
 			if (!empty($user)) {
-				// var_dump(decrypt($data['password']));
-				// die;
 				if (!decrypt($data['password'], $user['password'])) {
 					$msg = ['status' => 'danger', 'msg' => 'password tidak sesuai'];
 				} else {
@@ -67,11 +65,6 @@ class User_model extends CI_model
 					$user_role = $this->db->get_where('user_has_role', ['user_id' => $user['id']])->result_array();
 					foreach ($user_role as $key => $value) {
 						$user['role'][] = ['id' => $value['user_role_id'], 'title' => $role[$value['user_role_id']]];
-					}
-					$this->db->select('nama,gender,photo');
-					$user_profile = $this->db->get_where('user_profile', ['user_id' => $user['id']])->row_array();
-					foreach ($user_profile as $key => $value) {
-						$user[$key] = $value;
 					}
 					$this->session->set_userdata(str_replace('/', '_', base_url() . '_logged_in'), $user);
 					redirect($url);
@@ -102,7 +95,6 @@ class User_model extends CI_model
 					} elseif (!empty($data['password'])) {
 						$pass = encrypt($data['password']);
 					}
-
 					$this->db->where('id', $id);
 					if ($this->db->update('user', [
 						'password' => $pass,
@@ -110,10 +102,6 @@ class User_model extends CI_model
 						'email' => @$data['email'],
 					])) {
 						$msg = ['status' => 'success', 'msg' => 'user berhasil disimpan'];
-						$this->db->where('user_id', $id);
-						if (!$this->db->update('user_profile', ['user_id' => $id, 'nama' => $data['nama']])) {
-							$msg['msgs'][] = 'nama gagal disimpan';
-						}
 						$this->db->select('*');
 						$this->db->where(['user_id' => $id]);
 						$current_role = $this->db->get('user_has_role')->result_array();
@@ -159,9 +147,6 @@ class User_model extends CI_model
 						$msg = ['status' => 'success', 'msg' => 'user berhasil disimpan'];
 						$last_id = $this->db->insert_id();
 						$msg['user_id'] = $last_id;
-						if (!$this->db->insert('user_profile', ['user_id' => $last_id, 'nama' => $data['nama']])) {
-							$msg['msgs'][] = 'nama gagal disimpan';
-						}
 						$q = [];
 						foreach ($data['role'] as $key => $value) {
 							$q[] = ['user_id' => $last_id, 'user_role_id' => $value];
@@ -171,18 +156,13 @@ class User_model extends CI_model
 						}
 					}
 				} else {
-					// var_dump($exist);
-					// die;
 					$msg['msgs'][] = 'username sudah ada';
 				}
 			}
 		}
 		if (!empty($id)) {
-			$this->db->select('user.*,user_profile.nama');
-			$this->db->from('user');
-			$this->db->join('user_profile', 'user.id = user_profile.user_id');
 			$this->db->where(['user.id' => $id]);
-			$msg['user'] = $this->db->get()->row_array();
+			$msg['user'] = $this->db->get('user')->row_array();
 
 			$this->db->select('user_role_id');
 			$tmp_user_role = $this->db->get_where('user_has_role', ['user_id' => $id])->result_array();
@@ -231,12 +211,7 @@ class User_model extends CI_model
 
 	public function all()
 	{
-		$this->db->select('user.*,user_profile.nama');
-		$this->db->from('user');
-		$this->db->join('user_profile', 'user.id = user_profile.user_id');
-		// $this->db->where(['user.id'=>$id]);
-
-		return $this->db->get()->result_array();
+		return $this->db->get('user')->result_array();
 	}
 
 	public function role_all()

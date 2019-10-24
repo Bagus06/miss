@@ -1,21 +1,21 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="col-md-12">
-	<?php if (!empty($data['msg'])) : ?>
-		<?php echo alert($data['status'], $data['msg']) ?>
-		<?php if (!empty($data['msgs'])) : ?>
-			<?php foreach ($data['msgs'] as $key => $value) : ?>
-				<?php echo alert($data['status'], $value) ?>
-			<?php endforeach ?>
+	<?php if (!empty($data['msg'])): ?>
+		<?php echo alert($data['status'],$data['msg']) ?>
+		<?php if (!empty($data['msgs'])): ?>
+			<?php foreach ($data['msgs'] as $key => $value): ?>
+					<?php echo alert($data['status'], $value) ?>
+				<?php endforeach ?>	
 		<?php endif ?>
 	<?php endif ?>
 	<form action="" method="post" enctype="multipart/form-data">
 		<div class="panel panel-default card card-default">
 			<div class="panel-heading card-header">
-				<?php if (empty($data['data'])) : ?>
-					tambah
-				<?php else : ?>
-					ubah
-				<?php endif ?> kelas
+				<?php if (empty($data['data'])): ?>
+				 	tambah
+				 	<?php else: ?>
+				 	ubah
+				 <?php endif ?> kelas
 			</div>
 			<div class="panel-body card-body">
 				<div class="form-group">

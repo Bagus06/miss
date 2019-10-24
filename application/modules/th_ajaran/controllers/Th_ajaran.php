@@ -1,4 +1,4 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 require('./vendor/autoload.php');
 
@@ -29,28 +29,24 @@ class th_ajaran extends CI_Controller
 	{
 		$data = $this->th_ajaran_model->save();
 		$data['data'] = $this->th_ajaran_model->all();
-		$this->load->view('index', ['data' => $data]);
+		$this->load->view('index',['data'=>$data]);
 	}
 
 	public function edit($id = 0)
 	{
-		if (!empty($id)) {
+		if(!empty($id))
+		{
 			$data = $this->th_ajaran_model->save($id);
-			$this->load->view('index', ['data' => $data]);
+			$this->load->view('index', ['data'=>$data]);
 		}
+
 	}
-	public function up_th_ajaran($id = 0)
+	public function delete($id=0)
 	{
-		if (!empty($id)) {
-			$data = $this->th_ajaran_model->up_kelas_level($id);
-			$this->load->view('index', ['data' => $data]);
-		}
-	}
-	public function delete($id = 0)
-	{
-		if (!empty($id)) {
+		if(!empty($id))
+		{
 			$data = $this->th_ajaran_model->delete($id);
-			$this->load->view('index', ['data' => $data]);
+			$this->load->view('index', ['data'=>$data]);
 		}
-	}
+	}	
 }
