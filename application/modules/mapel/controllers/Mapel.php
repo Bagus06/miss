@@ -6,19 +6,19 @@ use PhpOffice\PhpSpreadsheet\Helper\Sample;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class Kelas extends CI_Controller
+class Mapel extends CI_Controller
 {
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('kelas_model');
+		$this->load->model('mapel_model');
 	}
 
 	public function proc_upload()
 	{
 		if (!empty($_FILES['doc']['name'])) {
-			$file = $this->kelas_model->upload($_FILES['doc']);
+			$file = $this->mapel_model->upload($_FILES['doc']);
 			// $file['desa_id'] = $_POST['desa_id'];
 			$data = ['status' => 'success', 'data' => $file];
 			output_json($data);
@@ -32,7 +32,7 @@ class Kelas extends CI_Controller
 	{
 		if (!empty($_POST['file'])) {
 			$file = $_POST['file'];
-			$file = FCPATH . 'assets/images/modules/kelas/' . $file;
+			$file = FCPATH . 'assets/images/modules/mapel/' . $file;
 			$reader = PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 			$reader->setReadDataOnly(TRUE);
 
@@ -58,7 +58,7 @@ class Kelas extends CI_Controller
 				$i++;
 			}
 			if (!empty($data)) {
-				if ($this->db->insert_batch('kelas', $data)) {
+				if ($this->db->insert_batch('mapel', $data)) {
 					echo output_json(['status' => 1]);
 				} else {
 					echo output_json(['status' => 0]);
@@ -75,7 +75,7 @@ class Kelas extends CI_Controller
 
 	public function download_template()
 	{
-		$data = $this->db->list_fields('kelas');
+		$data = $this->db->list_fields('mapel');
 		unset($data[0]);
 		$alp = alphabet();
 		$tot = count($data);
@@ -109,7 +109,7 @@ class Kelas extends CI_Controller
 
 		// Redirect output to a client’s web browser (Xlsx)
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		header('Content-Disposition: attachment;filename="kelas.xlsx"');
+		header('Content-Disposition: attachment;filename="mapel.xlsx"');
 		header('Cache-Control: max-age=0');
 		// If you're serving to IE 9, then the following may be needed
 		header('Cache-Control: max-age=1');
@@ -132,22 +132,22 @@ class Kelas extends CI_Controller
 
 	public function list()
 	{
-		$data = $this->kelas_model->save();
-		$data['data'] = $this->kelas_model->all();
+		$data = $this->mapel_model->save();
+		$data['data'] = $this->mapel_model->all();
 		$this->load->view('index', ['data' => $data]);
 	}
 
 	public function edit($id = 0)
 	{
 		if (!empty($id)) {
-			$data = $this->kelas_model->save($id);
+			$data = $this->mapel_model->save($id);
 			$this->load->view('index', ['data' => $data]);
 		}
 	}
 	public function delete($id = 0)
 	{
 		if (!empty($id)) {
-			$data = $this->kelas_model->delete($id);
+			$data = $this->mapel_model->delete($id);
 			$this->load->view('index', ['data' => $data]);
 		}
 	}

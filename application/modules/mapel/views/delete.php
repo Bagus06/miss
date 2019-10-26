@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <div class="col-md-12">
-	<a href="<?php echo base_url('guru') ?>" class="btn btn-warning btn-sm"><i class="fa fa-arrow-left"></i> kembali</a>
+	<a href="<?php echo base_url('mapel') ?>" class="btn btn-warning btn-sm"><i class="fa fa-arrow-left"></i> kembali</a>
 	<hr>
 	<?php if (!empty($data['msg'])) : ?>
 		<?php echo alert($data['status'], $data['msg']) ?>

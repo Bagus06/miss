@@ -4,29 +4,25 @@
 	<div class="card mb-3">
 		<div class="card-header">
 			<i class="fas fa-table"></i>
-			Data Guru</div>
+			Data Mapel Guru</div>
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
 							<th>No</th>
-							<th>nama</th>
-							<th>kode</th>
-							<th>gender</th>
-							<th>alamat</th>
-							<th>hp</th>
+							<th>mapel</th>
+							<th>guru</th>
+							<th>kelas</th>
 							<th>action</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
 							<th>No</th>
-							<th>nama</th>
-							<th>kode</th>
-							<th>gender</th>
-							<th>alamat</th>
-							<th>hp</th>
+							<th>mapel</th>
+							<th>guru</th>
+							<th>kelas</th>
 							<th>action</th>
 						</tr>
 					</tfoot>
@@ -36,15 +32,13 @@
 							<?php foreach ($data as $key => $value) : ?>
 								<tr>
 									<td><?php echo $i ?></td>
-									<td><?php echo $value['nama'] ?></td>
-									<td><?php echo $value['kode'] ?></td>
-									<td><?php echo $gender[$value['gender']] ?></td>
-									<td><?php echo $value['alamat'] ?></td>
-									<td><?php echo $value['hp'] ?></td>
+									<td><?php echo $mapel[$value['id_mapel']] ?></td>
+									<td><?php echo $guru[$value['id_guru']] ?></td>
+									<td><?php echo $kelas[$value['id_kelas']] ?></td>
 									<td>
-										<a href="<?php echo base_url('guru/edit/' . $value['id']) ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> edit</a>
+										<a href="<?php echo base_url('mapel_guru/edit/' . $value['id']) ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> edit</a>
 										|
-										<a href="<?php echo base_url('guru/delete/' . $value['id']) ?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['nama'] ?>')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
+										<a href="<?php echo base_url('mapel_guru/delete/' . $value['id']) ?>" onclick="if(confirm('apakah anda yakin ingin menghapus?')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
 									</td>
 								</tr>
 								<?php $i++; ?>

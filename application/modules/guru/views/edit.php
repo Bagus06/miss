@@ -23,6 +23,10 @@
 					<input type="text" class="form-control" name="nama" placeholder="nama" value="<?php echo @$data['data']['nama'] ?>">
 				</div>
 				<div class="form-group">
+					<label for="kode">kode</label>
+					<input type="text" class="form-control" name="kode" placeholder="kode" value="<?php echo @$data['data']['kode'] ?>">
+				</div>
+				<div class="form-group">
 					<label for="gender">gender</label>
 					<select name="gender" class="form-control">
 						<?php if (!empty($gender)) : ?>
