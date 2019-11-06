@@ -1,17 +1,17 @@
 $(document).ready(function () {
   let submit = () => {
-    $('#kelas_form').submit(function (e) {
+    $('#siswa_form').submit(function (e) {
       e.preventDefault();
       $('#loading').addClass('hidden');
-      $('#kelas_load').removeClass('hidden');
-      var form = $('#kelas_form')[0]; // You need to use standard javascript object here
+      $('#siswa_load').removeClass('hidden');
+      var form = $('#siswa_form')[0]; // You need to use standard javascript object here
       var formData = new FormData(form);
       upload_file(formData);
     });
   }
   let upload_file = (postdata) => {
     $.ajax({
-      url: _URL + 'kelas/proc_upload',
+      url: _URL + 'siswa/proc_upload',
       type: 'post',
       data: postdata,
       processData: false,
@@ -19,10 +19,10 @@ $(document).ready(function () {
       success: function (re) {
         console.log(re);
         if (re.status == 'success') {
-          var elem = document.getElementById("kelas_pro");
+          var elem = document.getElementById("siswa_pro");
           var width = 1;
           var id = setInterval(frame, 40);
-          $('#kelas_success_load').removeClass('hidden');
+          $('#siswa_success_load').removeClass('hidden');
           upload(re.data);
 
           function frame() {
@@ -50,10 +50,10 @@ $(document).ready(function () {
       data: {
         file: postfile
       },
-      url: _URL + "kelas/insert",
+      url: _URL + "siswa/insert",
       success: function (result) {
         if (result.status) {
-          var elem = document.getElementById("kelas_success_pro");
+          var elem = document.getElementById("siswa_success_pro");
           var width = 1;
           var id = setInterval(frame, 70);
 
