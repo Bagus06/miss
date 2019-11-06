@@ -13,6 +13,7 @@ class Siswa extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('siswa_model');
+		$this->load->model('user/user_model');
 		$this->load->model('kelas/kelas_model');
 	}
 
@@ -56,11 +57,25 @@ class Siswa extends CI_Controller
 					$j++;
 					// $data[$i]['desa_id'] = $desa_id;
 				}
+				if($i>0)
+				{
+					$user_input = [
+						'username' => $data[$i]['NISN'],
+						'password' => '123456',
+						'email'    => '-',
+						'active'   => 0,
+						'role'     => [4],
+						'nama'     => $data[$i]['NAMA'],
+						'gender'   => $data[$i]['GENDER']
+					];
+					$user_status = $this->user_model->save(0, $user_input);
+					$data[$i]['user_id'] = $user_status['user_id'];
+				}
 				$i++;
 			}
 			if (!empty($data)) {
 				if ($this->db->insert_batch('siswa', $data)) {
-					echo output_json(['status' => 1]);
+					echo output_json(['status' => 1, 'data'=>$data]);
 				} else {
 					echo output_json(['status' => 0]);
 				}

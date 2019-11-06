@@ -53,6 +53,7 @@ $(document).ready(function () {
       url: _URL + "siswa/insert",
       success: function (result) {
         if (result.status) {
+          console.log(result);
           var elem = document.getElementById("siswa_success_pro");
           var width = 1;
           var id = setInterval(frame, 70);
@@ -68,6 +69,8 @@ $(document).ready(function () {
               elem.innerHTML = show + " % data berhasil di upload";
             }
           }
+        }else{
+          console.log(result);
         }
       },
       error: function (error) {
