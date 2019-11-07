@@ -22,6 +22,14 @@
 <?php if ($this->uri->rsegments[1] . '/' . $this->uri->rsegments[2] == 'siswa/upload') : ?>
   <script src="<?php echo base_url(); ?>assets/js/modules/siswa/script.js"></script>
 <?php endif ?>
+
+<?php if ($this->uri->rsegments[1] . '/' . $this->uri->rsegments[2] == 'mapel/upload') : ?>
+  <script src="<?php echo base_url(); ?>assets/js/modules/mapel/script.js"></script>
+<?php endif ?>
+
+<?php if ($this->uri->rsegments[1] . '/' . $this->uri->rsegments[2] == 'th_ajaran/upload') : ?>
+  <script src="<?php echo base_url(); ?>assets/js/modules/th_ajaran/script.js"></script>
+<?php endif ?>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <script>
   $('#timepicker').timepicker({
