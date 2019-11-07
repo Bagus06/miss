@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 06 Nov 2019 pada 21.50
+-- Generation Time: 08 Nov 2019 pada 01.33
 -- Versi Server: 5.7.27-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.1
 
@@ -55,17 +55,21 @@ INSERT INTO `guru` (`id`, `user_id`, `nama`, `kode`, `gender`, `alamat`, `hp`, `
 
 CREATE TABLE `guru_has_mapel` (
   `id` int(11) NOT NULL,
-  `id_guru` int(11) NOT NULL,
-  `id_mapel` int(11) NOT NULL,
-  `id_kelas` int(11) NOT NULL
+  `guru_id` int(11) NOT NULL,
+  `mapel_id` int(11) NOT NULL,
+  `kelas_id` int(11) NOT NULL,
+  `th_ajaran_id` int(11) NOT NULL,
+  `hari` int(11) NOT NULL,
+  `jam_mulai` time NOT NULL,
+  `jam_selesai` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `guru_has_mapel`
 --
 
-INSERT INTO `guru_has_mapel` (`id`, `id_guru`, `id_mapel`, `id_kelas`) VALUES
-(3, 3, 4, 28);
+INSERT INTO `guru_has_mapel` (`id`, `guru_id`, `mapel_id`, `kelas_id`, `th_ajaran_id`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
+(18, 3, 2, 11, 1, 0, '00:34:00', '00:34:00');
 
 -- --------------------------------------------------------
 
@@ -164,7 +168,8 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `user_id`, `kelas_id`, `th_ajaran_id`, `angkatan`, `nama`, `nis`, `nisn`, `gender`, `photo`, `tmpt_lhr`, `tgl_lhr`, `alamat`) VALUES
-(6, 11, 11, 1, 1, 'Bagus Prods', '1111', '1113', 1, '-', 'jepara', '2019-10-24', 'Dermolo');
+(6, 11, 11, 1, 1, 'Bagus Prods', '1111', '1113', 1, '-', 'jepara', '2019-10-24', 'Dermolo'),
+(11, 15, 1, 2, 2, 'Bagusss', '1233', '1233', 1, 'a', 'Jepara', '0000-00-00', 'Dermolo');
 
 -- --------------------------------------------------------
 
@@ -212,7 +217,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `email`, `token`, `active`, `c
 (2, 'aw', '$2y$10$C3zyhmbvnu7vD0DS.xjJT.RMTOp4oTDEV9/7UFljdIz.bOBsX6NPG', 'iwansafr@gmail.com', '', 0, '2019-09-25 22:17:18', '2019-09-25 22:17:18'),
 (11, '1113', '$2y$10$mdyEO6VkQ8zwBTa2X7XTxetUuO.R7cpLeSHkhBNiaQbSfojMoX7si', '-', '', 0, '2019-10-24 22:19:51', '2019-10-24 22:20:33'),
 (13, 'A', '$2y$10$mp/7rcNAAxmeTWJPZYQGdeXGdilc7ftjEwO9IHsqXZpVBjfeblj7C', '-', '', 0, '2019-10-26 11:39:45', '2019-10-26 11:39:45'),
-(14, 'AZ', '$2y$10$IljZwLD2dPxdpTiuhQqiFOaXECK5XzCqgcdmOkz2CDr8TM1mkbLnq', '-', '', 0, '2019-10-26 11:40:15', '2019-10-26 11:40:15');
+(14, 'AZ', '$2y$10$IljZwLD2dPxdpTiuhQqiFOaXECK5XzCqgcdmOkz2CDr8TM1mkbLnq', '-', '', 0, '2019-10-26 11:40:15', '2019-10-26 11:40:15'),
+(15, '1233', '$2y$10$i1Qn3iPIAZVbAjwTPT872uno2Di3e33vxOKYMubEtbVpcK/OXUNzK', '-', '', 0, '2019-11-06 23:07:28', '2019-11-06 23:07:28');
 
 -- --------------------------------------------------------
 
@@ -237,7 +243,8 @@ INSERT INTO `user_has_role` (`id`, `user_id`, `user_role_id`) VALUES
 (38, 1, 2),
 (47, 11, 4),
 (49, 13, 3),
-(50, 14, 3);
+(50, 14, 3),
+(51, 15, 4);
 
 -- --------------------------------------------------------
 
@@ -279,7 +286,11 @@ ALTER TABLE `guru`
 -- Indexes for table `guru_has_mapel`
 --
 ALTER TABLE `guru_has_mapel`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `guru_id` (`guru_id`),
+  ADD KEY `mapel_id` (`mapel_id`),
+  ADD KEY `guru_has_mapel_ibfk_3` (`kelas_id`),
+  ADD KEY `th_ajaran_id` (`th_ajaran_id`);
 
 --
 -- Indexes for table `kelas`
@@ -344,7 +355,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `guru_has_mapel`
 --
 ALTER TABLE `guru_has_mapel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `kelas`
 --
@@ -359,7 +370,7 @@ ALTER TABLE `mapel`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `th_ajaran`
 --
@@ -369,12 +380,12 @@ ALTER TABLE `th_ajaran`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `user_has_role`
 --
 ALTER TABLE `user_has_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `user_role`
 --
@@ -389,6 +400,15 @@ ALTER TABLE `user_role`
 --
 ALTER TABLE `guru`
   ADD CONSTRAINT `guru_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `guru_has_mapel`
+--
+ALTER TABLE `guru_has_mapel`
+  ADD CONSTRAINT `guru_has_mapel_ibfk_1` FOREIGN KEY (`guru_id`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `guru_has_mapel_ibfk_2` FOREIGN KEY (`mapel_id`) REFERENCES `mapel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `guru_has_mapel_ibfk_3` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `guru_has_mapel_ibfk_4` FOREIGN KEY (`th_ajaran_id`) REFERENCES `th_ajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `siswa`
