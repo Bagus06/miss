@@ -62,11 +62,6 @@ class guru_mapel_model extends CI_Model
 		$data = $this->db->get('mapel')->result_array();
 		return $data;
 	}
-	public function guru()
-	{
-		$data = $this->db->get('guru')->result_array();
-		return $data;
-	}
 	public function kelas()
 	{
 		$data = $this->db->get('kelas')->result_array();
