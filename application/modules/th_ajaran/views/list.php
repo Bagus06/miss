@@ -37,6 +37,7 @@
 	    Data th_ajaran
 	    <a href="<?php echo base_url('th_ajaran/download_template') ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-download"></i> template</a>
 	    <a href="<?php echo base_url('th_ajaran/upload') ?>" class="btn btn-success btn-sm"><i class="fa fa-upload"></i> upload</a>
+	    <a href="<?php echo base_url('config/th_ajaran') ?>" class="btn btn-success btn-sm"><i class="fa fa-cog"></i> Config</a>
 	  </div>
 	  <div class="card-body">
 	    <div class="table-responsive">
