@@ -60,11 +60,11 @@ class guru_mapel extends CI_Controller
 		$data_guru = $this->db->get_where('guru_has_mapel', ['guru_id' => $id])->result_array();
 		$guru = $this->db->get_where('guru', ['id' => $id])->result_array();
 		$hari = [
-			'0' => ['id' => '0', 'nama' => 'Senin'],
-			'1' => ['id' => '1', 'nama' => 'Selasa'],
-			'2' => ['id' => '2', 'nama' => 'Rabu'],
-			'3' => ['id' => '3', 'nama' => 'Kamis'],
-			'4' => ['id' => '4', 'nama' => 'Jumat'],
+			'1' => ['id' => '1', 'nama' => 'Senin'],
+			'2' => ['id' => '2', 'nama' => 'Selasa'],
+			'3' => ['id' => '3', 'nama' => 'Rabu'],
+			'4' => ['id' => '4', 'nama' => 'Kamis'],
+			'5' => ['id' => '5', 'nama' => 'Jumat'],
 		];
 		$o_hari = [
 			'Senin',
