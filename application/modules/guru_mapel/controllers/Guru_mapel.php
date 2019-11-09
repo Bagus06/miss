@@ -13,6 +13,8 @@ class guru_mapel extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('guru_mapel_model');
+		$this->load->model('config/config_model');
+		$this->load->model('th_ajaran/th_ajaran_model');
 	}
 
 	public function upload()
@@ -67,6 +69,7 @@ class guru_mapel extends CI_Controller
 			'5' => ['id' => '5', 'nama' => 'Jumat'],
 		];
 		$o_hari = [
+			'',
 			'Senin',
 			'Selasa',
 			'Rabu',
@@ -88,21 +91,29 @@ class guru_mapel extends CI_Controller
 		foreach ($th_ajaran as $key => $value) {
 			$o_th_ajaran[$value['id']] = $value['title'];
 		}
+		$c_data = $this->config_model->save('th_ajaran');
+		$current_data = [];
+		if (!empty($c_data)) {
+			$current_data = json_decode($c_data['data']['value'], 1);
+		}
 		$this->load->view(
 			'index',
 			[
 				'data' => $data,
+				'c_data' => $c_data,
 				'data_guru' => $data_guru,
 				'mapel' => $mapel,
 				'o_mapel' => $o_mapel,
-				'th_ajaran' => $th_ajaran,
+				'r_th_ajaran' => $th_ajaran,
 				'o_th_ajaran' => $o_th_ajaran,
 				'guru' => $guru,
 				'kelas' => $kelas,
 				'o_kelas' => $o_kelas,
 				'hari' => $hari,
 				'o_hari' => $o_hari,
-				'id' => $id
+				'id' => $id,
+				'th_ajaran' => $this->th_ajaran_model->all(),
+				'current_data' => $current_data
 			]
 		);
 	}

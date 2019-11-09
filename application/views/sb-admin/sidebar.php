@@ -58,4 +58,9 @@
       <i class="fas fa-fw fa-chart-area"></i>
       <span>th_ajaran</span></a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="<?php echo base_url('config/th_ajaran') ?>">
+      <i class="fas fa-fw fa-chart-area"></i>
+      <span>config</span></a>
+  </li>
 </ul>

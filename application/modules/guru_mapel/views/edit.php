@@ -24,11 +24,11 @@
 				<input name="guru_id" type="hidden" value="<?= $id; ?>">
 				<div class="form-group">
 					<label for="th_ajaran">th ajaran</label>
-					<select name="th_ajaran_id" class="form-control">
+					<select name="th_ajaran_id" class="form-control" readonly>
 						<?php if (!empty($th_ajaran)) : ?>
 							<?php foreach ($th_ajaran as $key => $value) : ?>
 								<?php $selected = ''; ?>
-								<?php if (in_array($value['id'], $data['title'])) : ?>
+								<?php if ($value['id'] == $current_data['th_ajaran']) : ?>
 									<?php $selected = 'selected'; ?>
 								<?php endif ?>
 								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
@@ -81,11 +81,11 @@
 				<div class="form-row">
 					<div class="col-md-6 mb-3">
 						<label for="mulai">mulai</label>
-						<input name="jam_mulai" id="timepicker" width="350" value="">
+						<input name="jam_mulai" id="timepicker" width="350" value="<?= set_value('jam_selesai'); ?>" required>
 					</div>
 					<div class="col-md-6 mb-3">
 						<label for="selesai">selesai</label>
-						<input name="jam_selesai" id="timepicker2" width="350" value="">
+						<input name="jam_selesai" id="timepicker2" width="350" value="" required>
 					</div>
 				</div>
 				<div class="panel-footer card-footer">

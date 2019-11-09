@@ -14,11 +14,10 @@ class Config extends CI_Controller
 	{
 		$data = $this->config_model->save('th_ajaran');
 		$current_data = [];
-		if(!empty($data))
-		{
-			$current_data = json_decode($data['data']['value'],1);
+		if (!empty($data)) {
+			$current_data = json_decode($data['data']['value'], 1);
 		}
-		$this->load->view('index',['th_ajaran'=>$this->th_ajaran_model->all(),'data'=>$data,'current_data'=>$current_data]);
+		$this->load->view('index', ['th_ajaran' => $this->th_ajaran_model->all(), 'data' => $data, 'current_data' => $current_data]);
 	}
 	public function list()
 	{
