@@ -91,20 +91,25 @@ class guru_mapel extends CI_Controller
 		foreach ($th_ajaran as $key => $value) {
 			$o_th_ajaran[$value['id']] = $value['title'];
 		}
-		$c_data = $this->config_model->save('th_ajaran');
+		$data = $this->config_model->save('th_ajaran');
 		$current_data = [];
-		if (!empty($c_data)) {
-			$current_data = json_decode($c_data['data']['value'], 1);
+		$c_th = "";
+		if (!empty($data)) {
+			$current_data = json_decode($data['data']['value'], 1);
+		}
+
+		foreach ($th_ajaran as $key => $value) {
+			if ($value['id'] == $current_data['th_ajaran']) {
+				$c_th = $value;
+			}
 		}
 		$this->load->view(
 			'index',
 			[
 				'data' => $data,
-				'c_data' => $c_data,
 				'data_guru' => $data_guru,
 				'mapel' => $mapel,
 				'o_mapel' => $o_mapel,
-				'r_th_ajaran' => $th_ajaran,
 				'o_th_ajaran' => $o_th_ajaran,
 				'guru' => $guru,
 				'kelas' => $kelas,
@@ -112,8 +117,7 @@ class guru_mapel extends CI_Controller
 				'hari' => $hari,
 				'o_hari' => $o_hari,
 				'id' => $id,
-				'th_ajaran' => $this->th_ajaran_model->all(),
-				'current_data' => $current_data
+				'th_ajaran' => $c_th,
 			]
 		);
 	}

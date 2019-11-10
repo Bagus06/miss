@@ -4,7 +4,7 @@ class Config_model extends CI_Model
 {
 	public function save($config_name = '')
 	{
-		if ($this->input->post()) {
+		if ($this->input->post('th_ajaran')) {
 			$data = $this->input->post();
 			$data = json_encode($data);
 			$exist = $this->get_config($config_name);

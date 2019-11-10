@@ -23,18 +23,9 @@
 			<div class="panel-body card-body">
 				<input name="guru_id" type="hidden" value="<?= $id; ?>">
 				<div class="form-group">
-					<label for="th_ajaran">th ajaran</label>
-					<select name="th_ajaran_id" class="form-control" readonly>
-						<?php if (!empty($th_ajaran)) : ?>
-							<?php foreach ($th_ajaran as $key => $value) : ?>
-								<?php $selected = ''; ?>
-								<?php if ($value['id'] == $current_data['th_ajaran']) : ?>
-									<?php $selected = 'selected'; ?>
-								<?php endif ?>
-								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
-							<?php endforeach ?>
-						<?php endif ?>
-					</select>
+					<label for="th_ajaran_id">th_ajaran</label>
+					<input name="th_ajaran_id" type="hidden" value="<?= $th_ajaran['id']; ?>">
+					<input type="text" class="form-control" value="<?= $th_ajaran['title']; ?>" readonly>
 				</div>
 				<div class="form-group">
 					<label for="mapel">mapel</label>
