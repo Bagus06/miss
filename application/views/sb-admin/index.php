@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <?php $this->load->view('sb-admin/meta') ?>
 </head>
@@ -17,8 +18,8 @@
           <li class="breadcrumb-item active">Overview</li>
         </ol>
         <div class="row">
-          <?php 
-          $this->load->view($this->uri->rsegments[1].'/'.$this->uri->rsegments[2]);
+          <?php
+          $this->load->view($this->uri->rsegments[1] . '/' . $this->uri->rsegments[2]);
           ?>
         </div>
       </div>
@@ -40,7 +41,6 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

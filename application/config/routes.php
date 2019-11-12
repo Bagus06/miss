@@ -10,6 +10,7 @@ $route['siswa']                = 'siswa/list';
 $route['guru_mapel']           = 'guru_mapel/list';
 $route['guru']                 = 'guru/list';
 $route['th_ajaran']            = 'th_ajaran/list';
+$route['presensi']            = 'presensi/list';
 $route['config']               = 'config/list';
 $route['404_override']         = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -91,13 +91,12 @@ class guru_mapel extends CI_Controller
 		foreach ($th_ajaran as $key => $value) {
 			$o_th_ajaran[$value['id']] = $value['title'];
 		}
-		$data = $this->config_model->save('th_ajaran');
+		$c_data = $this->config_model->get_config('th_ajaran');
 		$current_data = [];
 		$c_th = "";
-		if (!empty($data)) {
-			$current_data = json_decode($data['data']['value'], 1);
+		if (!empty($c_data)) {
+			$current_data = json_decode($c_data['value'], 1);
 		}
-
 		foreach ($th_ajaran as $key => $value) {
 			if ($value['id'] == $current_data['th_ajaran']) {
 				$c_th = $value;
