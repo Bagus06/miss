@@ -2,9 +2,14 @@
 
 class Siswa_model extends CI_Model
 {
-	public function all()
+	public function all($id = 0)
 	{
-		return $this->db->get('siswa')->result_array();
+		$id = @$_GET['k'];
+		if ($id != '') {
+			return $this->db->get_where('siswa', ['kelas_id' => $id])->result_array();
+		} else {
+			return $this->db->get('siswa')->result_array();
+		}
 	}
 
 	public function upload($file = '', $mode = '')
@@ -34,6 +39,7 @@ class Siswa_model extends CI_Model
 				'nis'      => $data['nis'],
 				'nisn'     => $data['nisn'],
 				'gender'   => $data['gender'],
+				'agama'   => $data['agama'],
 				'photo'    => empty($data['photo']) ? '-' : $data['photo'],
 				'tmpt_lhr' => $data['tmpt_lhr'],
 				'tgl_lhr'  => $data['tgl_lhr'],
@@ -58,8 +64,12 @@ class Siswa_model extends CI_Model
 				if ($current_user['id'] == $exist['id'] || empty($exist)) {
 					$this->db->where('id', $id);
 					if ($this->db->update('siswa', $siswa_input)) {
+						$fp = $this->db->get_where('presensi', ['siswa_id' => $current_user['id']])->row_array();
+						if (!empty($fp)) {
+							$this->db->update('presensi', ['kelas_id' => $data['kelas']], ['siswa_id' => $current_user['id']]);
+						}
 						if ($current_user['nisn'] != $data['nisn']) {
-							$q = $this->db->update('user', ['username' => $data['nisn']], ['id' => $current_user['user_id']]);
+							$this->db->update('user', ['username' => $data['nisn']], ['id' => $current_user['user_id']]);
 							$msg = ['status' => 'success', 'msg' => 'siswa berhasil disimpan'];
 						} else {
 							$msg = ['status' => 'success', 'msg' => 'siswa berhasil disimpan'];
@@ -114,5 +124,10 @@ class Siswa_model extends CI_Model
 	public function th_ajaran()
 	{
 		return $this->db->get('th_ajaran')->result_array();
+	}
+	public function kelas()
+	{
+		$data = $this->db->get('kelas')->result_array();
+		return $data;
 	}
 }

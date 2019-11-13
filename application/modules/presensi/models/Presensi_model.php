@@ -68,4 +68,9 @@ class presensi_model extends CI_Model
 			}
 		}
 	}
+	public function kelas()
+	{
+		$data = $this->db->get('kelas')->result_array();
+		return $data;
+	}
 }

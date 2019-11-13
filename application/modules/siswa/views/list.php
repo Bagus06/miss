@@ -7,6 +7,14 @@
 			Data siswa
 			<a href="<?php echo base_url('siswa/download_template') ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-download"></i> template</a>
 			<a href="<?php echo base_url('siswa/upload') ?>" class="btn btn-success btn-sm"><i class="fa fa-upload"></i> upload</a>
+			<a href="<?php echo base_url('siswa') ?>" class="btn btn-success btn-sm">all</a>
+			<div style="padding-top:2%;">
+				<select class="custom-select" size="3">
+					<?php foreach ($kelas as $key => $value) : ?>
+						<option onclick="window.location='<?php echo base_url('siswa/list?k=') ?><?= $value['id']; ?>'"><?= $value['nama']; ?></option>
+					<?php endforeach ?>
+				</select>
+			</div>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -15,12 +23,9 @@
 						<tr>
 							<th>No</th>
 							<th>nama</th>
-							<th>nis</th>
-							<th>nisn</th>
 							<th>gender</th>
-							<th>tempat lahir</th>
-							<th>tgl lahir</th>
-							<th>alamat</th>
+							<th>kelas</th>
+							<th>agama</th>
 							<th>action</th>
 						</tr>
 					</thead>
@@ -28,12 +33,9 @@
 						<tr>
 							<th>No</th>
 							<th>nama</th>
-							<th>nis</th>
-							<th>nisn</th>
 							<th>gender</th>
-							<th>tempat lahir</th>
-							<th>tgl lahir</th>
-							<th>alamat</th>
+							<th>kelas</th>
+							<th>agama</th>
 							<th>action</th>
 						</tr>
 					</tfoot>
@@ -44,16 +46,20 @@
 								<tr>
 									<td><?php echo $i ?></td>
 									<td><?php echo $value['nama'] ?></td>
-									<td><?php echo $value['nis'] ?></td>
-									<td><?php echo $value['nisn'] ?></td>
 									<td><?php echo $gender[$value['gender']] ?></td>
-									<td><?php echo $value['tmpt_lhr'] ?></td>
-									<td><?php echo $value['tgl_lhr'] ?></td>
-									<td><?php echo $value['alamat'] ?></td>
+									<td><?php echo $kelas_o[$value['kelas_id']] ?></td>
+									<td><?php echo $agama[$value['agama']] ?></td>
 									<td>
-										<a href="<?php echo base_url('siswa/edit/' . $value['id']) ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> edit</a>
-										|
-										<a href="<?php echo base_url('siswa/delete/' . $value['nisn']) ?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['nama'] ?>')){}else{return false;};" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> delete</a>
+										<div class="dropdown">
+											<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+												Action
+											</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profil</a>
+												<a href="<?php echo base_url('siswa/edit/' . $value['id']) ?>" class="dropdown-item"><i class="fa fa-pencil-alt"></i> edit</a>
+												<a href="<?php echo base_url('siswa/delete/' . $value['nisn']) ?>" onclick="if(confirm('apakah anda yakin ingin menghapus <?php echo $value['nama'] ?>')){}else{return false;};" class="dropdown-item"><i class="fa fa-trash"></i> delete</a>
+											</div>
+										</div>
 									</td>
 								</tr>
 								<?php $i++; ?>

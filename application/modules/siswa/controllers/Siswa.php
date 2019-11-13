@@ -57,8 +57,7 @@ class Siswa extends CI_Controller
 					$j++;
 					// $data[$i]['desa_id'] = $desa_id;
 				}
-				if($i>0)
-				{
+				if ($i > 0) {
 					$user_input = [
 						'username' => $data[$i]['NISN'],
 						'password' => '123456',
@@ -75,7 +74,7 @@ class Siswa extends CI_Controller
 			}
 			if (!empty($data)) {
 				if ($this->db->insert_batch('siswa', $data)) {
-					echo output_json(['status' => 1, 'data'=>$data]);
+					echo output_json(['status' => 1, 'data' => $data]);
 				} else {
 					echo output_json(['status' => 0]);
 				}
@@ -156,13 +155,29 @@ class Siswa extends CI_Controller
 
 	public function list()
 	{
+
+		$kelas = $this->siswa_model->kelas();
+		$o_kelas = [];
+		foreach ($kelas as $key => $value) {
+			$o_kelas[$value['id']] = $value['nama'];
+		}
+
+		$agama = ['', 'Islam', 'Kristen', 'Hindu', 'Budha', 'Konghucu'];
+
 		$data = $this->siswa_model->all();
-		$this->load->view('index', ['data' => $data, 'gender' => ['perempuan', 'laki-laki']]);
+		$this->load->view('index', ['data' => $data, 'gender' => ['perempuan', 'laki-laki'], 'kelas_o' => $o_kelas, 'kelas' => $kelas, 'agama' => $agama]);
 	}
 
 	public function edit($id = 0)
 	{
 		$data = $this->siswa_model->save($id);
-		$this->load->view('index', ['data' => $data, 'kelas' => $this->kelas_model->all(), 'gender' => ['0' => ['id' => '0', 'title' => 'Perempuan'], '1' => ['id' => '1', 'title' => 'Laki-laki']], 'th_ajaran' => $this->siswa_model->th_ajaran()]);
+		$agama = [
+			'1' => ['id' => '1', 'title' => 'Islam'],
+			'2' => ['id' => '2', 'title' => 'Kristen'],
+			'3' => ['id' => '3', 'title' => 'Hindu'],
+			'4' => ['id' => '4', 'title' => 'Budha'],
+			'5' => ['id' => '5', 'title' => 'Konghucu'],
+		];
+		$this->load->view('index', ['data' => $data, 'kelas' => $this->kelas_model->all(), 'gender' => ['0' => ['id' => '0', 'title' => 'Perempuan'], '1' => ['id' => '1', 'title' => 'Laki-laki']], 'th_ajaran' => $this->siswa_model->th_ajaran(), 'agama' => $agama]);
 	}
 }

@@ -36,7 +36,21 @@
 						<?php if (!empty($gender)) : ?>
 							<?php foreach ($gender as $key => $value) : ?>
 								<?php $selected = ''; ?>
-								<?php if (in_array($value['id'], $data['user_role'])) : ?>
+								<?php if ($value['id'] == $data['data']['gender']) : ?>
+									<?php $selected = 'selected'; ?>
+								<?php endif ?>
+								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
+							<?php endforeach ?>
+						<?php endif ?>
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="agama">agama</label>
+					<select name="agama" class="form-control">
+						<?php if (!empty($agama)) : ?>
+							<?php foreach ($agama as $key => $value) : ?>
+								<?php $selected = ''; ?>
+								<?php if ($value['id'] == $data['data']['agama']) : ?>
 									<?php $selected = 'selected'; ?>
 								<?php endif ?>
 								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['title'] ?></option>
@@ -64,7 +78,7 @@
 						<?php if (!empty($kelas)) : ?>
 							<?php foreach ($kelas as $key => $value) : ?>
 								<?php $selected = ''; ?>
-								<?php if (in_array($value['id'], $data['nama'])) : ?>
+								<?php if ($value['id'] == $data['data']['kelas_id']) : ?>
 									<?php $selected = 'selected'; ?>
 								<?php endif ?>
 								<option value="<?php echo $value['id'] ?>" <?php echo $selected ?>><?php echo $value['nama'] ?></option>

@@ -132,23 +132,27 @@ class presensi extends CI_Controller
 
 	public function list()
 	{
+		$data['data'] = $this->presensi_model->kelas();
+		$this->load->view('index', ['data' => $data]);
+	}
+
+	public function edit($id = 0)
+	{
 		$data = $this->presensi_model->save();
-		$data['data'] = $this->db->get_where('siswa', ['kelas_id' => '1',])->result_array();
-		$presensi = $this->db->get_where('presensi', ['kelas_id' => '1', 'tanggal' => date('Y-m-d')])->result_array();
+		$kelas = $this->presensi_model->kelas();
+		$o_kelas = [];
+		foreach ($kelas as $key => $value) {
+			$o_kelas[$value['id']] = $value['nama'];
+		}
+		$k = $_GET['k'];
+		$data['data'] = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
+		$presensi = $this->db->get_where('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')])->result_array();
 		$ket = [
 			'1' => ['id' => '1', 'title' => 'Berangkat'],
 			'2' => ['id' => '2', 'title' => 'Ijin'],
 			'3' => ['id' => '3', 'title' => 'Alasan'],
 		];
-		$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi]);
-	}
-
-	public function edit($id = 0)
-	{
-		if (!empty($id)) {
-			$data = $this->presensi_model->save($id);
-			$this->load->view('index', ['data' => $data]);
-		}
+		$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas]);
 	}
 	public function delete($id = 0)
 	{
