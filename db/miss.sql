@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 13 Nov 2019 pada 09.22
+-- Generation Time: 13 Nov 2019 pada 23.48
 -- Versi Server: 5.7.27-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.1
 
@@ -172,9 +172,8 @@ CREATE TABLE `presensi` (
 --
 
 INSERT INTO `presensi` (`id`, `siswa_id`, `kelas_id`, `keterangan`, `tanggal`) VALUES
-(1, 6, 1, 1, '2019-11-13'),
-(2, 11, 1, 2, '2019-11-13'),
-(6, 12, 1, 1, '2019-11-13');
+(2, 11, 11, 2, '2019-11-13'),
+(6, 12, 11, 1, '2019-11-13');
 
 -- --------------------------------------------------------
 
@@ -192,6 +191,7 @@ CREATE TABLE `siswa` (
   `nis` varchar(20) NOT NULL,
   `nisn` varchar(20) NOT NULL,
   `gender` tinyint(1) NOT NULL,
+  `agama` tinyint(1) NOT NULL,
   `photo` varchar(255) NOT NULL,
   `tmpt_lhr` varchar(255) NOT NULL,
   `tgl_lhr` date NOT NULL,
@@ -202,10 +202,10 @@ CREATE TABLE `siswa` (
 -- Dumping data untuk tabel `siswa`
 --
 
-INSERT INTO `siswa` (`id`, `user_id`, `kelas_id`, `th_ajaran_id`, `angkatan`, `nama`, `nis`, `nisn`, `gender`, `photo`, `tmpt_lhr`, `tgl_lhr`, `alamat`) VALUES
-(6, 11, 1, 1, 1, 'Bagus Prods', '1111', '1113', 1, '-', 'jepara', '2019-10-24', 'Dermolo'),
-(11, 15, 1, 2, 2, 'Bagusss', '1233', '1233', 1, 'a', 'Jepara', '0000-00-00', 'Dermolo'),
-(12, 16, 1, 3, 3, 'Annas', '112233', '332211', 1, '-', 'jepara', '2019-11-12', 'sd');
+INSERT INTO `siswa` (`id`, `user_id`, `kelas_id`, `th_ajaran_id`, `angkatan`, `nama`, `nis`, `nisn`, `gender`, `agama`, `photo`, `tmpt_lhr`, `tgl_lhr`, `alamat`) VALUES
+(11, 15, 11, 1, 1, 'Bagusss', '1233', '1233', 1, 1, '-', 'Jepara', '0000-00-00', 'Dermolo'),
+(12, 16, 11, 1, 1, 'Annas', '112233', '332211', 1, 5, '-', 'jepara', '2019-11-12', 'Mlonggo'),
+(13, 17, 11, 3, 3, 'Koresiy', '1111', '1112', 1, 1, '-', 'jepara', '2019-11-13', 'poreng');
 
 -- --------------------------------------------------------
 
@@ -251,11 +251,11 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `token`, `active`, `created`, `updated`) VALUES
 (1, 'root', '$2y$10$C3zyhmbvnu7vD0DS.xjJT.RMTOp4oTDEV9/7UFljdIz.bOBsX6NPG', 'iwan@gmail.com', '', 0, '2019-09-25 20:42:39', '2019-09-26 02:32:42'),
 (2, 'aw', '$2y$10$C3zyhmbvnu7vD0DS.xjJT.RMTOp4oTDEV9/7UFljdIz.bOBsX6NPG', 'iwansafr@gmail.com', '', 0, '2019-09-25 22:17:18', '2019-09-25 22:17:18'),
-(11, '1113', '$2y$10$mdyEO6VkQ8zwBTa2X7XTxetUuO.R7cpLeSHkhBNiaQbSfojMoX7si', '-', '', 0, '2019-10-24 22:19:51', '2019-10-24 22:20:33'),
 (13, 'A', '$2y$10$mp/7rcNAAxmeTWJPZYQGdeXGdilc7ftjEwO9IHsqXZpVBjfeblj7C', '-', '', 0, '2019-10-26 11:39:45', '2019-10-26 11:39:45'),
 (14, 'AZ', '$2y$10$IljZwLD2dPxdpTiuhQqiFOaXECK5XzCqgcdmOkz2CDr8TM1mkbLnq', '-', '', 0, '2019-10-26 11:40:15', '2019-10-26 11:40:15'),
 (15, '1233', '$2y$10$i1Qn3iPIAZVbAjwTPT872uno2Di3e33vxOKYMubEtbVpcK/OXUNzK', '-', '', 0, '2019-11-06 23:07:28', '2019-11-06 23:07:28'),
-(16, '332211', '$2y$10$6uGPmeplDz5yjKZSnhWue.UIspQgEPNjhPiK7yqTpa6nTA9y/Y3sW', '-', '', 0, '2019-11-12 23:05:52', '2019-11-13 00:53:49');
+(16, '332211', '$2y$10$6uGPmeplDz5yjKZSnhWue.UIspQgEPNjhPiK7yqTpa6nTA9y/Y3sW', '-', '', 0, '2019-11-12 23:05:52', '2019-11-13 00:53:49'),
+(17, '1112', '$2y$10$dym./Cm6ma1gR2D/iJcq6e.mtQdJQngkQxmNWMU1wYgRRH.3zMFN6', '-', '', 0, '2019-11-13 23:29:20', '2019-11-13 23:29:20');
 
 -- --------------------------------------------------------
 
@@ -278,11 +278,11 @@ INSERT INTO `user_has_role` (`id`, `user_id`, `user_role_id`) VALUES
 (36, 1, 3),
 (37, 1, 1),
 (38, 1, 2),
-(47, 11, 4),
 (49, 13, 3),
 (50, 14, 3),
 (51, 15, 4),
-(52, 16, 4);
+(52, 16, 4),
+(53, 17, 4);
 
 -- --------------------------------------------------------
 
@@ -432,7 +432,7 @@ ALTER TABLE `presensi`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `th_ajaran`
 --
@@ -442,12 +442,12 @@ ALTER TABLE `th_ajaran`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `user_has_role`
 --
 ALTER TABLE `user_has_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT for table `user_role`
 --
