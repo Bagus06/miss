@@ -145,6 +145,13 @@ class Siswa extends CI_Controller
 		exit;
 	}
 
+	public function opsi()
+	{
+		$data['data'] = [['nama' => 'RPL'], ['nama' => 'OTKP'], ['nama' => 'TBSM'], ['nama' => 'AKL'], ['nama' => 'BDP']];
+		$kelas = $this->siswa_model->kelas();
+		$this->load->view('index', ['data' => $data, 'kelas' => $kelas]);
+	}
+
 	public function delete($id = 0)
 	{
 		if (!empty($id)) {

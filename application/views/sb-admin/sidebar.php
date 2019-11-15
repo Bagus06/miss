@@ -40,7 +40,7 @@
     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
       <h6 class="dropdown-header">siswa:</h6>
       <a class="dropdown-item" href="<?php echo base_url('siswa/edit') ?>"><i class="fa fa-plus"></i> add siswa</a>
-      <a class="dropdown-item" href="<?php echo base_url('siswa/list') ?>"><i class="fa fa-list"></i> siswa list</a>
+      <a class="dropdown-item" href="<?php echo base_url('siswa/opsi') ?>"><i class="fa fa-list"></i> data siswa</a>
     </div>
   </li>
   <li class="nav-item">
@@ -59,7 +59,7 @@
       <span>th_ajaran</span></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="<?php echo base_url('presensi') ?>">
+    <a class="nav-link" href="<?php echo base_url('presensi/') ?>">
       <i class="fas fa-fw fa-chart-area"></i>
       <span>presensi</span></a>
   </li>

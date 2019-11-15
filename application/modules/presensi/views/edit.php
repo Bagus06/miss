@@ -52,11 +52,12 @@
 														<?= $b['title']; ?>
 													<?php endif ?>
 												<?php endforeach ?>
+											
 											<?php endif ?>
 										<?php endforeach ?>
 									</td>
 									<td align="center">
-										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?= $value['id'] ?>">absen</button>
+										<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?= $value['id'] ?>">isi</button>
 									</td>
 								</tr>
 								<?php $i++; ?>

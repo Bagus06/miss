@@ -130,10 +130,17 @@ class presensi extends CI_Controller
 		$this->load->view('index');
 	}
 
+	public function opsi()
+	{
+		$data['data'] = [['nama' => 'RPL'], ['nama' => 'OTKP'], ['nama' => 'TBSM'], ['nama' => 'AKL'], ['nama' => 'BDP']];
+		$this->load->view('index', ['data' => $data]);
+	}
+
 	public function list()
 	{
 		$data['data'] = $this->presensi_model->kelas();
-		$this->load->view('index', ['data' => $data]);
+		$jurusan = [['nama' => 'RPL'], ['nama' => 'OTKP'], ['nama' => 'TBSM'], ['nama' => 'AKL'], ['nama' => 'BDP']];
+		$this->load->view('index', ['data' => $data, 'jurusan' => $jurusan]);
 	}
 
 	public function edit($id = 0)
@@ -144,7 +151,7 @@ class presensi extends CI_Controller
 		foreach ($kelas as $key => $value) {
 			$o_kelas[$value['id']] = $value['nama'];
 		}
-		$k = $_GET['k'];
+		$k = $this->input->get('k');
 		$data['data'] = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
 		$presensi = $this->db->get_where('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')])->result_array();
 		$ket = [

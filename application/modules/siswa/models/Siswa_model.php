@@ -4,9 +4,12 @@ class Siswa_model extends CI_Model
 {
 	public function all($id = 0)
 	{
-		$id = @$_GET['k'];
-		if ($id != '') {
+		$id = $this->input->get('k');
+		$id_k = $this->input->get('id_k');
+		if ($this->input->get('k')) {
 			return $this->db->get_where('siswa', ['kelas_id' => $id])->result_array();
+		} elseif ($this->input->get('id_k')) {
+			return $this->db->get_where('siswa', ['kelas_id' => $id_k])->result_array();
 		} else {
 			return $this->db->get('siswa')->result_array();
 		}

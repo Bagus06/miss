@@ -2,6 +2,13 @@
 
 class presensi_model extends CI_Model
 {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('config/config_model');
+		$this->load->model('th_ajaran/th_ajaran_model');
+	}
+
 	public function all()
 	{
 		return $this->db->get('presensi')->result_array();
@@ -28,14 +35,33 @@ class presensi_model extends CI_Model
 			$id = $this->db->get_where('presensi', ['siswa_id' => $id_s, 'tanggal' => $tanggal])->row_array();
 			$id = $id['id'];
 			$msg = ['status' => 'danger', 'msg' => 'presensi gagal disimpan'];
+			$th_ajaran = $this->th_ajaran_model->all();
+			$c_data = $this->config_model->get_config('th_ajaran');
+			$current_data = [];
+			$c_th = "";
+			if (!empty($c_data)) {
+				$current_data = json_decode($c_data['value'], 1);
+			}
+			foreach ($th_ajaran as $key => $value) {
+				if ($value['id'] == $current_data['th_ajaran']) {
+					$c_th = $value;
+				}
+			}
 			$data = $this->input->post();
+			$presensi_input = [
+				'siswa_id' => $data['siswa_id'],
+				'kelas_id' => $data['kelas_id'],
+				'th_ajaran_id' => $c_th['id'],
+				'keterangan' => $data['keterangan'],
+				'tanggal' => date('Y-m-d')
+			];
 			if (!empty($id)) {
 				$this->db->select('id');
 				$exist = $this->db->get_where('presensi', ['siswa_id' => $id_s, 'tanggal' => $tanggal])->row_array();
 				$current_user = $this->db->get_where('presensi', ['id' => $id])->row_array();
 				if ($current_user['id'] == $exist['id'] || empty($exist)) {
 					$this->db->where('id', $id);
-					if ($this->db->update('presensi', $data)) {
+					if ($this->db->update('presensi', $presensi_input)) {
 						$msg = ['status' => 'success', 'msg' => 'presensi berhasil disimpan'];
 					}
 				} else {
@@ -45,7 +71,7 @@ class presensi_model extends CI_Model
 				$this->db->select('id');
 				$exist =  $this->db->get_where('presensi', ['siswa_id' => $id_s, 'tanggal' => $tanggal])->row_array();
 				if (empty($exist)) {
-					if ($this->db->insert('presensi', $data)) {
+					if ($this->db->insert('presensi', $presensi_input)) {
 						$msg = ['status' => 'success', 'msg' => 'presensi berhasil disimpan'];
 					}
 				} else {

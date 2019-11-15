@@ -8,13 +8,15 @@
 			<a href="<?php echo base_url('siswa/download_template') ?>" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-download"></i> template</a>
 			<a href="<?php echo base_url('siswa/upload') ?>" class="btn btn-success btn-sm"><i class="fa fa-upload"></i> upload</a>
 			<a href="<?php echo base_url('siswa') ?>" class="btn btn-success btn-sm">all</a>
-			<div style="padding-top:2%;">
-				<select class="custom-select" size="3">
-					<?php foreach ($kelas as $key => $value) : ?>
-						<option onclick="window.location='<?php echo base_url('siswa/list?k=') ?><?= $value['id']; ?>'"><?= $value['nama']; ?></option>
-					<?php endforeach ?>
-				</select>
-			</div>
+			<?php if (!$this->input->get('k')) : ?>
+				<div style="padding-top:2%;">
+					<select class="custom-select" size="3">
+						<?php foreach ($kelas as $key => $value) : ?>
+							<option onclick="window.location='<?php echo base_url('siswa/list?id_k=') ?><?= $value['id']; ?>'"><?= $value['nama']; ?></option>
+						<?php endforeach ?>
+					</select>
+				</div>
+			<?php endif ?>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">

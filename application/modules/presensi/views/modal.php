@@ -14,20 +14,33 @@
                         <input type="hidden" name="kelas_id" value="<?= $value['kelas_id'] ?>">
                         <div class="modal-body">
                             <select class="custom-select" size="3" name="keterangan" required>
-                                <?php foreach ($presensi as $key => $a) : ?>
-                                    <?php if ($a['siswa_id'] == $value['id']) : ?>
-                                        <?php foreach ($ket as $key => $b) : ?>
-                                            <?php $selected = ''; ?>
-                                            <?php if ($b['id'] == $a['keterangan']) : ?>
-                                                <?php $selected = 'selected'; ?>
-                                            <?php endif ?>
-                                            <option value="<?php echo $b['id'] ?>" <?= $selected; ?>><?php echo $b['title'] ?></option>
-                                        <?php endforeach ?>
-                                    <?php endif ?>
-                                <?php endforeach ?>
+                                <?php if (!empty($presensi)) : ?>
+                                    <?php foreach ($presensi as $key => $a) : ?>
+                                        <?php if ($a['siswa_id'] == $value['id']) : ?>
+                                            <?php foreach ($ket as $key => $b) : ?>
+                                                <?php $selected = ''; ?>
+                                                <?php if ($b['id'] == $a['keterangan']) : ?>
+                                                    <?php $selected = 'selected'; ?>
+                                                <?php endif ?>
+                                                <option value="<?php echo $b['id'] ?>" <?= $selected; ?>><?php echo $b['title'] ?></option>
+                                            <?php endforeach ?>
+                                        <?php else : ?>
+                                            <?php foreach ($ket as $key => $b) : ?>
+                                                <option value="<?php echo $b['id'] ?>">
+                                                    <?php echo $b['title'] ?>
+                                                </option>
+                                            <?php endforeach ?>
+                                        <?php endif ?>
+                                    <?php endforeach ?>
+                                <?php else : ?>
+                                    <?php foreach ($ket as $key => $b) : ?>
+                                        <option value="<?php echo $b['id'] ?>">
+                                            <?php echo $b['title'] ?>
+                                        </option>
+                                    <?php endforeach ?>
+                                <?php endif ?>
                             </select>
                         </div>
-                        <input type="hidden" name="tanggal" value="<?php echo date('Y-m-d'); ?>">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save</button>
