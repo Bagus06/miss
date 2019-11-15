@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: 13 Nov 2019 pada 23.48
+-- Generation Time: 15 Nov 2019 pada 20.09
 -- Versi Server: 5.7.27-0ubuntu0.18.04.1
 -- PHP Version: 7.2.24-0ubuntu0.18.04.1
 
@@ -163,6 +163,7 @@ CREATE TABLE `presensi` (
   `id` int(11) NOT NULL,
   `siswa_id` int(11) NOT NULL,
   `kelas_id` int(11) NOT NULL,
+  `th_ajaran_id` int(11) NOT NULL,
   `keterangan` int(11) NOT NULL,
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -171,9 +172,11 @@ CREATE TABLE `presensi` (
 -- Dumping data untuk tabel `presensi`
 --
 
-INSERT INTO `presensi` (`id`, `siswa_id`, `kelas_id`, `keterangan`, `tanggal`) VALUES
-(2, 11, 11, 2, '2019-11-13'),
-(6, 12, 11, 1, '2019-11-13');
+INSERT INTO `presensi` (`id`, `siswa_id`, `kelas_id`, `th_ajaran_id`, `keterangan`, `tanggal`) VALUES
+(2, 11, 11, 3, 2, '2019-11-13'),
+(6, 12, 11, 3, 1, '2019-11-13'),
+(7, 11, 11, 3, 1, '2019-11-14'),
+(10, 11, 11, 3, 2, '2019-11-15');
 
 -- --------------------------------------------------------
 
@@ -355,7 +358,8 @@ ALTER TABLE `mapel`
 ALTER TABLE `presensi`
   ADD PRIMARY KEY (`id`),
   ADD KEY `siswa_id` (`siswa_id`),
-  ADD KEY `kelas_id` (`kelas_id`);
+  ADD KEY `kelas_id` (`kelas_id`),
+  ADD KEY `th_ajaran_id` (`th_ajaran_id`);
 
 --
 -- Indexes for table `siswa`
@@ -427,7 +431,7 @@ ALTER TABLE `mapel`
 -- AUTO_INCREMENT for table `presensi`
 --
 ALTER TABLE `presensi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `siswa`
 --
@@ -477,7 +481,8 @@ ALTER TABLE `guru_has_mapel`
 --
 ALTER TABLE `presensi`
   ADD CONSTRAINT `presensi_ibfk_1` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `presensi_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `presensi_ibfk_2` FOREIGN KEY (`kelas_id`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `presensi_ibfk_3` FOREIGN KEY (`th_ajaran_id`) REFERENCES `th_ajaran` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `siswa`
