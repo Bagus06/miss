@@ -24,12 +24,6 @@
                                                 <?php endif ?>
                                                 <option value="<?php echo $b['id'] ?>" <?= $selected; ?>><?php echo $b['title'] ?></option>
                                             <?php endforeach ?>
-                                        <?php else : ?>
-                                            <?php foreach ($ket as $key => $b) : ?>
-                                                <option value="<?php echo $b['id'] ?>">
-                                                    <?php echo $b['title'] ?>
-                                                </option>
-                                            <?php endforeach ?>
                                         <?php endif ?>
                                     <?php endforeach ?>
                                 <?php else : ?>
