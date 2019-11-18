@@ -12,58 +12,57 @@
 <?php if (date('D') == 'Sat' || date('D') == 'Sun'): ?>
 	Hari ini libur
 <?php else: ?>
-	<div class="col-md-12">
+	<div class="col-md-12" style="
+    padding-bottom: 150px;">
 		<div class="card">
 			<div class="card-header">
 				<i class="fas fa-table"></i>
-				Presensi siswa kelas Tanggal <?= date('Y-m-d'); ?>
+				Presensi siswa kelas <?php echo $kelas[$this->input->get('k')] ?>, Tanggal <?= date('Y-m-d'); ?>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable" class="datatable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
-								<th>No</th>
 								<th>nama</th>
-								<th>kelas</th>
 								<th style="text-align:center;">keterangan</th>
-								<th style="text-align:center;">action</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>No</th>
 								<th>nama</th>
-								<th>kelas</th>
 								<th style="text-align:center;">keterangan</th>
-								<th style="text-align:center;">action</th>
 							</tr>
 						</tfoot>
 						<tbody>
-							<?php $i = 1; ?>
 							<?php if (!empty($data['data'])) : ?>
 								<?php foreach ($data['data'] as $key => $value) : ?>
 									<tr>
-										<td><?php echo $i ?></td>
 										<td><?php echo $value['nama'] ?></td>
-										<td><?php echo $kelas[$value['kelas_id']] ?></td>
 										<td align="center">
-											<?php foreach ($presensi as $key => $a) : ?>
-												<?php if ($a['siswa_id'] == $value['id']) : ?>
-													<?php foreach ($ket as $key => $b) : ?>
-														<?php if ($b['id'] == $a['keterangan']) : ?>
-															<?= $b['title']; ?>
-														<?php endif ?>
-													<?php endforeach ?>
-
-												<?php endif ?>
-											<?php endforeach ?>
-										</td>
-										<td align="center">
-											<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal<?= $value['id'] ?>">isi</button>
+											<button type="button" class="btn btn-block 
+												<?php foreach ($presensi as $key => $a) : ?>
+													<?php if ($a['siswa_id'] == $value['id']) : ?>
+														<?php foreach ($ket as $key => $b) : ?>
+															<?php if ($b['id'] == $a['keterangan']) : ?>
+																<?= $b['color']; ?>
+															<?php endif ?>
+														<?php endforeach ?>
+													<?php endif ?>
+												<?php endforeach ?>
+											" data-toggle="modal" data-target="#exampleModal<?= $value['id'] ?>">
+												<?php foreach ($presensi as $key => $a) : ?>
+													<?php if ($a['siswa_id'] == $value['id']) : ?>
+														<?php foreach ($ket as $key => $b) : ?>
+															<?php if ($b['id'] == $a['keterangan']) : ?>
+																<?= $b['title']; ?>
+															<?php endif ?>
+														<?php endforeach ?>
+													<?php endif ?>
+												<?php endforeach ?>
+											</button>
 										</td>
 									</tr>
-									<?php $i++; ?>
 								<?php endforeach ?>
 							<?php endif ?>
 						</tbody>

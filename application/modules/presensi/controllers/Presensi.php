@@ -154,9 +154,10 @@ class presensi extends CI_Controller
 			$data['data'] = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
 			$presensi = $this->db->get_where('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')])->result_array();
 			$ket = [
-				'1' => ['id' => '1', 'title' => 'Berangkat'],
-				'2' => ['id' => '2', 'title' => 'Ijin'],
-				'3' => ['id' => '3', 'title' => 'Alasan'],
+				'0' => ['id' => '0', 'title' => '-', 'color' => 'btn-info'],
+				'1' => ['id' => '1', 'title' => 'Berangkat', 'color' => 'btn-primary'],
+				'2' => ['id' => '2', 'title' => 'Ijin', 'color' => 'btn-warning'],
+				'3' => ['id' => '3', 'title' => 'Alasan', 'color' => 'btn-danger'],
 			];
 			$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas]);
 		}
