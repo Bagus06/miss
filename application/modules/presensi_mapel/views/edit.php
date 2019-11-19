@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<?php if ($data['day'] == 'Sat' || $data['day'] == 'Sun'): ?>
+<?php if (@$data['day'] == 'Sat' || @$data['day'] == 'Sun'): ?>
 	Hari ini libur
 <?php else: ?>
 
