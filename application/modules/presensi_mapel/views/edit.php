@@ -5,12 +5,14 @@
 
 	<div class="col-md-12" style="
     padding-bottom: 150px;">
-    	<h4>Presensi siswa kelas (<?php echo $kelas[$find_mhp['kelas_id']] ?>)</h4>
-    	<h6>Guru ( <?php echo $guru[$find_mhp['guru_id']] . ', ' . $mapel[$find_mhp['mapel_id']] . ', ' . $find_mhp['jam_mulai'] . '-' . $find_mhp['jam_selesai'] ?> )</h6>
+    	<?php if (!empty($find_mhp)): ?>
+    		<h4>Presensi siswa kelas (<?php echo @$kelas[$find_mhp['kelas_id']] ?>)</h4>
+	    	<h6>Guru ( <?php echo @$guru[$find_mhp['guru_id']] . ', ' . @$mapel[$find_mhp['mapel_id']] . ', ' . @$find_mhp['jam_mulai'] . '-' . $find_mhp['jam_selesai'] ?> )</h6>
+	    	<?php endif ?>
 		<div class="card">
 			<div class="card-header">
 				<i class="fas fa-table"></i>
-				Presensi siswa kelas <?php echo $kelas[$find_mhp['kelas_id']] ?>, Tanggal <?= date('Y-m-d'); ?>
+				Presensi siswa Tanggal <?= date('Y-m-d'); ?>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">

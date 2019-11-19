@@ -29,7 +29,7 @@ class presensi_mapel_model extends CI_Model
 	{
 		$msg = [];
 		$time = date('g:i:s');
-		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => 1, 'jam_mulai <' => '07:44.16', 'jam_selesai >=' => '07:44.16'])->row_array();
+		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => 1, 'jam_mulai <' => '07:46.16', 'jam_selesai >=' => '07:46.16'])->row_array();
 		$k = $find_mhp['kelas_id'];
 		$tanggal = date('Y-m-d');
 		$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
@@ -97,7 +97,7 @@ class presensi_mapel_model extends CI_Model
 					$this->db->select('id');
 					$exist =  $this->db->get_where('presensi_has_mapel', ['siswa_id' => $id_s, 'kode' => $kode, 'kelas_id' => $k])->row_array();
 					if (empty($exist)) {
-						if ($this->db->insert('presensi_has_mapel', $presensi_has_mapel_input)) {
+						if ($this->db->insert('presensi_has_mapel', $presensi_mapel_input)) {
 							$msg = ['status' => 'success', 'msg' => 'presensi berhasil disimpan'];
 						}
 					} else {

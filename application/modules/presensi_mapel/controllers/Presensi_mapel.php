@@ -140,10 +140,8 @@ class presensi_mapel extends CI_Controller
 	public function edit($id = 0)
 	{
 		$day = date ('D');
-		$day = 'Sat';
 		if($day == 'Sat' || $day == 'Sun'){
 			$data['data'] = 'Hari ini hari ' . $day . ' selamat libur.';
-			$data['day'] = $day;
 			$this->load->view('index', ['data' => $data]);
 		}else{
 			$data = $this->presensi_mapel_model->save();
@@ -163,7 +161,7 @@ class presensi_mapel extends CI_Controller
 				$o_mapel[$value['id']] = $value['nama'];
 			}
 			$time = date('g:i:s');
-			$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => 1, 'jam_mulai <' => '07:44.16', 'jam_selesai >=' => '07:44.16'])->row_array();
+			$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => 1, 'jam_mulai <' => '07:46.16', 'jam_selesai >=' => '07:46.16'])->row_array();
 			$k = $find_mhp['kelas_id'];
 			$tanggal = date('Y-m-d');
 			$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
