@@ -29,7 +29,7 @@ class presensi_mapel_model extends CI_Model
 	{
 		$msg = [];
 		$time = date('g:i:s');
-		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => 1, 'jam_mulai <' => '07:46.16', 'jam_selesai >=' => '07:46.16'])->row_array();
+		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => 1, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
 		$k = $find_mhp['kelas_id'];
 		$tanggal = date('Y-m-d');
 		$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
