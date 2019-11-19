@@ -140,8 +140,10 @@ class presensi_mapel extends CI_Controller
 	public function edit($id = 0)
 	{
 		$day = date ('D');
+		$day = 'Sat';
 		if($day == 'Sat' || $day == 'Sun'){
 			$data['data'] = 'Hari ini hari ' . $day . ' selamat libur.';
+			$data['day'] = $day;
 			$this->load->view('index', ['data' => $data]);
 		}else{
 			$data = $this->presensi_mapel_model->save();

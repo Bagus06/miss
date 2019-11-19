@@ -1,15 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<div class="col-md-12">
-	<?php if (!empty($data['msg'])) : ?>
-		<?php echo alert($data['status'], $data['msg']) ?>
-		<?php if (!empty($data['msgs'])) : ?>
-			<?php foreach ($data['msgs'] as $key => $value) : ?>
-				<?php echo alert($data['status'], $value) ?>
-			<?php endforeach ?>
-		<?php endif ?>
-	<?php endif ?>
-</div>
-<?php if (date('D') == 'Sat' || date('D') == 'Sun'): ?>
+<?php if ($data['day'] == 'Sat' || $data['day'] == 'Sun'): ?>
 	Hari ini libur
 <?php else: ?>
 
