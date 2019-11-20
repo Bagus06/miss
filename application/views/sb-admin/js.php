@@ -37,9 +37,11 @@
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <script>
   $('#timepicker').timepicker({
-    uiLibrary: 'bootstrap4'
+    use24hours: true,
+    // format: 'HH:mm'
   });
   $('#timepicker2').timepicker({
-    uiLibrary: 'bootstrap4'
+    use24hours: true,
+    // format: 'HH:mm'
   });
 </script>

@@ -28,7 +28,7 @@ class presensi_mapel_model extends CI_Model
 	public function save($id = 0)
 	{
 		$msg = [];
-		$time = date('g:i:s');
+		$time = date('H:m');
 		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => 1, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
 		$k = $find_mhp['kelas_id'];
 		$tanggal = date('Y-m-d');
