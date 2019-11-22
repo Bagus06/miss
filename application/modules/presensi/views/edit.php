@@ -24,20 +24,24 @@
 					<table class="table table-bordered" id="dataTable" class="datatable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
+								<th width="10px">No</th>
 								<th>nama</th>
 								<th style="text-align:center;">keterangan</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
+								<th>No</th>
 								<th>nama</th>
 								<th style="text-align:center;">keterangan</th>
 							</tr>
 						</tfoot>
 						<tbody>
 							<?php if (!empty($data['data'])) : ?>
+								<?php $no = 1; ?>
 								<?php foreach ($data['data'] as $key => $value) : ?>
 									<tr>
+										<td><?php echo $no; ?></td>
 										<td><?php echo $value['nama'] ?></td>
 										<td align="center">
 											<button type="button" class="btn btn-block 
@@ -63,6 +67,7 @@
 											</button>
 										</td>
 									</tr>
+									<?php $no++; ?>
 								<?php endforeach ?>
 							<?php endif ?>
 						</tbody>

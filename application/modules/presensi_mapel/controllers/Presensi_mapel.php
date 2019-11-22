@@ -141,7 +141,28 @@ class presensi_mapel extends CI_Controller
 	{
 		$day = date ('D');
 		$time = date('H:m');
-		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => 1, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
+
+		switch($day){
+			case 'Mon':			
+			$hari_ini = 1;
+			break;
+			case 'Tue':
+			$hari_ini = 2;
+			break;
+			case 'Wed':
+			$hari_ini = 3;
+			break;
+			case 'Thu':
+			$hari_ini = 4;
+			break;
+			case 'Fri':
+			$hari_ini = 5;
+			break;
+			default:
+			$hari_ini = "Tidak di ketahui";		
+			break;
+		}
+		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
 		if($day == 'Sat' || $day == 'Sun'){
 			$data['data'] = 'Hari ini hari ' . $day . ' selamat libur.';
 			$data['day'] = $day;
