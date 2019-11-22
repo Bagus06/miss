@@ -32,7 +32,10 @@ class Jurnal_model extends CI_Model
 			$hari_ini = null;		
 			break;
 		}
-		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
+		$id_u = get_user()['id'];
+		$this->db->select('id');
+		$exist = $this->db->get_where('guru', ['user_id' => $id_u])->row_array();
+		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
 		$k = $find_mhp['kelas_id'];
 		$tanggal = date('Y-m-d');
 		$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
@@ -40,20 +43,27 @@ class Jurnal_model extends CI_Model
 		{
 			$msg = ['status'=>'danger', 'msg'=>'jurnal gagal disimpan'];
 			$data = $this->input->post();
+			$jurnal_input = [
+				'materi' => $data['materi'],
+				'guru_id' => $find_mhp['guru_id'],
+				'mapel_id' => $find_mhp['mapel_id'],
+				'tanggal' => $tanggal,
+				'kode' => $kode
+			];
 			if(!empty($id))
 			{
 				$this->db->select('id');
-				$exist = $this->db->get_where('jurnal', ['nama'=>$data['nama']])->row_array();
+				$exist = $this->db->get_where('jurnal', ['kode'=>$kode])->row_array();
 				$current_user = $this->db->get_where('jurnal', ['id'=>$id])->row_array();
-				if($current_user['id'] == $exist['id'] || empty($exist))
+				if($current_user['id'] == $exist['id'])
 				{
 					$this->db->where('id',$id);
-					if($this->db->update('jurnal',$data))
+					if($this->db->update('jurnal',$jurnal_input))
 					{
 						$msg = ['status'=>'success', 'msg'=>'jurnal berhasil disimpan'];
 					}
 				}else{
-					$msg['msgs'][] = 'nama sudah ada';
+					$msg['msgs'][] = 'Jurnal sudah di input';
 				}
 			}else{
 				$this->db->select('id');
@@ -64,12 +74,12 @@ class Jurnal_model extends CI_Model
 				}else{
 					if(empty($exist1))
 					{
-						if($this->db->insert('jurnal',$data))
+						if($this->db->insert('jurnal',$jurnal_input))
 						{
 							$msg = ['status'=>'success', 'msg'=>'jurnal berhasil disimpan'];
 						}
 					}else{
-						$msg['msgs'][] = 'nama sudah ada';
+						$msg['msgs'][] = 'Jurnal sudah di input';
 					}
 				}
 			}
@@ -91,5 +101,15 @@ class Jurnal_model extends CI_Model
 				return ['status'=>'danger','msg'=>'data gagal dihapus'];
 			}
 		}
-	}	
+	}
+	public function mapel()
+	{
+		$data = $this->db->get('mapel')->result_array();
+		return $data;
+	}
+	public function kelas()
+	{
+		$data = $this->db->get('kelas')->result_array();
+		return $data;
+	}
 }

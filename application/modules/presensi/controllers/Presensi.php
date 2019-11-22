@@ -132,9 +132,17 @@ class presensi extends CI_Controller
 
 	public function list()
 	{
-		$data['data'] = $this->presensi_model->kelas();
-		$jurusan = [['nama' => 'RPL'], ['nama' => 'OTKP'], ['nama' => 'TBSM'], ['nama' => 'AKL'], ['nama' => 'BDP']];
-		$this->load->view('index', ['data' => $data, 'jurusan' => $jurusan]);
+		if (!is_petugas() || !is_siswa()) {
+			$data['data'] = $this->presensi_model->kelas();
+			$jurusan = [['nama' => 'RPL'], ['nama' => 'OTKP'], ['nama' => 'TBSM'], ['nama' => 'AKL'], ['nama' => 'BDP']];
+			$this->load->view('index', ['data' => $data, 'jurusan' => $jurusan]);
+		}else{
+			$link = str_replace('/', '_', base_url());
+			$id_u = $_SESSION[$link.'_logged_in']['id'];
+			$this->db->select('kelas_id');
+			$find_siswa = $this->db->get_where('siswa', ['user_id' => $id_u])->row_array();
+			redirect('http://localhost/miss/presensi/edit?k=' . $find_siswa['kelas_id']);
+		}
 	}
 
 	public function edit($id = 0)

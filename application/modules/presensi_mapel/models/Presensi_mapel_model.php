@@ -51,7 +51,10 @@ class presensi_mapel_model extends CI_Model
 			$hari_ini = null;		
 			break;
 		}
-		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => 3, 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
+		$id_u = get_user()['id'];
+		$this->db->select('id');
+		$exist = $this->db->get_where('guru', ['user_id' => $id_u])->row_array();
+		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
 		$k = $find_mhp['kelas_id'];
 		$tanggal = date('Y-m-d');
 		$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];

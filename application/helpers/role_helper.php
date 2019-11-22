@@ -10,6 +10,16 @@ function is_admin()
 	return check_role('admin');
 }
 
+function is_petugas()
+{
+	return check_role('petugas');
+}
+
+function is_siswa()
+{
+	return check_role('siswa');
+}
+
 function get_user()
 {
 	$link = str_replace('/', '_', base_url());

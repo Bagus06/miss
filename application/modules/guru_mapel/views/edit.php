@@ -13,6 +13,7 @@
 			<div class="panel-heading card-header">
 				<?php foreach ($guru as $key => $value) {
 					$nama = $value['nama'];
+					$id = $value['user_id'];
 				} ?>
 				<?php if (empty($data['data'])) : ?>
 					tambah

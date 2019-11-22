@@ -8,25 +8,36 @@
 				<?php endforeach ?>	
 		<?php endif ?>
 	<?php endif ?>
-	<form action="" method="post" enctype="multipart/form-data">
-		<div class="panel panel-default card card-default">
-			<div class="panel-heading card-header">
-				<?php if (empty($data['data'])): ?>
-				 	tambah
-				 	<?php else: ?>
-				 	ubah
-				 <?php endif ?> jurnal
-			</div>
-			<div class="panel-body card-body">
-				<div class="form-group">
-					<label for="nama">nama</label>
-					<input type="text" class="form-control" name="nama" placeholder="nama" value="<?php echo @$data['data']['nama'] ?>">
+	<?php if (!empty($guru_has_mapel)): ?>
+		<?php if (empty($check_jurnal)): ?>
+			<h4>Kelas (<?php echo @$kelas[$guru_has_mapel['kelas_id']] ?>)</h4>
+			<h6>Guru (<?php echo @$guru['nama']; ?>, <?php echo @$mapel[$guru_has_mapel['mapel_id']] ?>, Jam <?php echo @$guru_has_mapel['jam_mulai'] ?> - <?php echo @$guru_has_mapel['jam_selesai'] ?>)</h6>
+			<form action="" method="post" enctype="multipart/form-data">
+				<div class="panel panel-default card card-default">
+					<div class="panel-heading card-header">
+						<?php if (empty($data['jurnal'])): ?>
+						 	tambah
+						 	<?php else: ?>
+						 	ubah
+						 <?php endif ?> jurnal
+					</div>
+					<div class="panel-body card-body">
+						<div class="form-group">
+							<label for="materi">materi</label>
+							<textarea name="materi" class="form-control" rows="3"></textarea>
+						</div>
+					</div>
+					<div class="panel-footer card-footer">
+						<button class="btn btn-success btn-sm" type="submit"><i class="fa fa-save"></i> Simpan</button>
+						<button class="btn btn-warning btn-sm" type="reset"><i class="fa fa-undo"></i> Reset</button>
+					</div>
+					</div>
 				</div>
-			</div>
-			<div class="panel-footer card-footer">
-				<button class="btn btn-success btn-sm" type="submit"><i class="fa fa-save"></i> Simpan</button>
-				<button class="btn btn-warning btn-sm" type="reset"><i class="fa fa-undo"></i> Reset</button>
-			</div>
-		</div>
-	</form>
+			</form>
+		<?php else: ?>
+			Selamat mengajar di jam selanjutnya :)
+		<?php endif ?>
+	<?php else: ?>
+		Saatnya istirahat
+	<?php endif ?>
 </div>

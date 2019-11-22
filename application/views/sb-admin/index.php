@@ -6,16 +6,20 @@
 </head>
 
 <body id="page-top">
-  <?php $this->load->view('sb-admin/nav-menu') ?>
+  <?php if (is_root() || is_admin() || is_petugas()): ?>
+    <?php $this->load->view('sb-admin/nav-menu') ?>
+  <?php endif ?>
   <div id="wrapper">
-    <?php $this->load->view('sb-admin/sidebar') ?>
+    <?php if (is_root() || is_admin() || is_petugas()): ?>
+      <?php $this->load->view('sb-admin/sidebar') ?>
+    <?php endif ?>
     <div id="content-wrapper">
       <div class="container-fluid">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">Overview</li>
+          <li class="breadcrumb-item active"><?php echo $this->uri->rsegments[1]; ?></li>
         </ol>
         <div class="row">
           <?php
@@ -23,13 +27,15 @@
           ?>
         </div>
       </div>
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright © SMK N 1 BANGSRI 2019</span>
+      <?php if (is_admin() || is_root()): ?>
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © SMK N 1 BANGSRI 2019</span>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      <?php endif ?>
 
     </div>
     <!-- /.content-wrapper -->
