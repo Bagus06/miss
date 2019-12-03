@@ -6,18 +6,7 @@ class guru_mapel_model extends CI_Model
 	{
 		return $this->db->get('guru_has_mapel')->result_array();
 	}
-	public function upload($file = '', $mode = '')
-	{
-		if (!empty($file['tmp_name'])) {
-			$dir = FCPATH . 'assets/images/modules/guru_mapel/';
-			if (!is_dir($dir)) {
-				mkdir($dir, 0777);
-			}
-			if (copy($file['tmp_name'], $dir . $_SESSION[str_replace('/', '_', base_url() . '_logged_in')]['username'] . $mode . '.xlsx')) {
-				return $_SESSION[str_replace('/', '_', base_url() . '_logged_in')]['username'] . '.xlsx';
-			}
-		}
-	}
+	
 	public function save($id = 0)
 	{
 		$msg = [];

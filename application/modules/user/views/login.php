@@ -36,13 +36,13 @@
         <form action="" method="post">
           <div class="form-group">
             <div class="form-label-group">
-              <input type="text" class="form-control" name="username" placeholder="username" required="required" autofocus="autofocus">
+              <input type="text" class="form-control" name="username" required="required" autofocus="autofocus">
               <label for="inputEmail">Username</label>
             </div>
           </div>
           <div class="form-group">
             <div class="form-label-group">
-              <input type="password" name="password" class="form-control" placeholder="Password" required="required">
+              <input type="password" name="password" class="form-control" required="required">
               <label for="inputPassword">Password</label>
             </div>
           </div>

@@ -13,23 +13,14 @@ class presensi_model extends CI_Model
 	{
 		return $this->db->get('presensi')->result_array();
 	}
-	public function upload($file = '', $mode = '')
-	{
-		if (!empty($file['tmp_name'])) {
-			$dir = FCPATH . 'assets/images/modules/presensi/';
-			if (!is_dir($dir)) {
-				mkdir($dir, 0777);
-			}
-			if (copy($file['tmp_name'], $dir . $_SESSION[str_replace('/', '_', base_url() . '_logged_in')]['username'] . $mode . '.xlsx')) {
-				return $_SESSION[str_replace('/', '_', base_url() . '_logged_in')]['username'] . '.xlsx';
-			}
-		}
-	}
+
 	public function save($id = 0)
 	{
 		$msg = [];
+
 		$k = $this->input->get('k');
 		$q = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
+
 		$th_ajaran = $this->th_ajaran_model->all();
 		$c_data = $this->config_model->get_config('th_ajaran');
 		$current_data = [];
@@ -42,6 +33,7 @@ class presensi_model extends CI_Model
 				$c_th = $value;
 			}
 		}
+		
 		$tanggal = date('Y-m-d');
 		$q_rows = $this->db->get_where('siswa', ['kelas_id' => $k,])->num_rows();
 		$presensi_rows = $this->db->get_where('presensi', ['kelas_id' => $k, 'tanggal' => $tanggal])->num_rows();

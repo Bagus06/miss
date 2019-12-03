@@ -13,23 +13,13 @@ class presensi_mapel_model extends CI_Model
 	{
 		return $this->db->get('presensi_has_mapel')->result_array();
 	}
-	public function upload($file = '', $mode = '')
-	{
-		if (!empty($file['tmp_name'])) {
-			$dir = FCPATH . 'assets/images/modules/presensi_has_mapel/';
-			if (!is_dir($dir)) {
-				mkdir($dir, 0777);
-			}
-			if (copy($file['tmp_name'], $dir . $_SESSION[str_replace('/', '_', base_url() . '_logged_in')]['username'] . $mode . '.xlsx')) {
-				return $_SESSION[str_replace('/', '_', base_url() . '_logged_in')]['username'] . '.xlsx';
-			}
-		}
-	}
+
 	public function save($id = 0)
 	{
 		$msg = [];
 		$day = date ('D');
 		$time = date('H:m');
+		// $time = '07:30';
 
 		switch($day){
 			case 'Mon':			
@@ -51,13 +41,17 @@ class presensi_mapel_model extends CI_Model
 			$hari_ini = null;		
 			break;
 		}
-		$id_u = get_user()['id'];
+		// $hari_ini = 1;
+
+		$username = get_user()['username'];
 		$this->db->select('id');
-		$exist = $this->db->get_where('guru', ['user_id' => $id_u])->row_array();
+		$exist = $this->db->get_where('guru', ['kode' => $username])->row_array();
 		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
+
 		$k = $find_mhp['kelas_id'];
 		$tanggal = date('Y-m-d');
 		$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
+
 		$q = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
 		$th_ajaran = $this->th_ajaran_model->all();
 		$c_data = $this->config_model->get_config('th_ajaran');

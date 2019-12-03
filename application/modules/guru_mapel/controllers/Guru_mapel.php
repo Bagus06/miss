@@ -17,11 +17,6 @@ class guru_mapel extends CI_Controller
 		$this->load->model('th_ajaran/th_ajaran_model');
 	}
 
-	public function upload()
-	{
-		$this->load->view('index');
-	}
-
 	public function index()
 	{
 		$this->load->view('index');
@@ -58,7 +53,7 @@ class guru_mapel extends CI_Controller
 	public function edit($id = 0)
 	{
 		$data = $this->guru_mapel_model->save($id);
-		$id = $_GET['id'];
+		$id = $this->input->get('id');
 		$data_guru = $this->db->get_where('guru_has_mapel', ['guru_id' => $id])->result_array();
 		$guru = $this->db->get_where('guru', ['id' => $id])->result_array();
 		$hari = [
