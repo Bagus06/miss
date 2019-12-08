@@ -10,7 +10,6 @@
 	<?php endif ?>
 </div>
 <?php if (date('D') == 'Sat' || date('D') == 'Sun'): ?>
-	Hari ini libur
 <?php else: ?>
 	<div class="col-md-12" style="
     padding-bottom: 150px;">
@@ -37,7 +36,7 @@
 							</tr>
 						</tfoot>
 						<tbody>
-							<?php if (!empty($data['data'])) : ?>
+							<?php if (!empty($data['data'] && is_array($data['data']))) : ?>
 								<?php $no = 1; ?>
 								<?php foreach ($data['data'] as $key => $value) : ?>
 									<tr>

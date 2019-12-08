@@ -145,6 +145,12 @@ class presensi_mapel_model extends CI_Model
 		if (!empty($id)) {
 			$msg['data'] = $this->db->get_where('presensi_has_mapel', ['id' => $id])->row_array();
 		}
+		if($day == 'Sat' || $day == 'Sun'){
+			$msg = ['status' => 'info', 'msg' => 'Hari ini libur, Selamat istirahat.'];
+		}elseif (empty($find_mhp)){
+			$msg = ['status' => 'info', 'msg' => 'Saat ini anda tidak ada jam mengajar, Selamat istirahat :)'];
+		}
+
 		return $msg;
 	}
 	public function delete($id = 0)

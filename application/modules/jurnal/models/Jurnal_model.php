@@ -96,6 +96,11 @@ class Jurnal_model extends CI_Model
 		{
 			$msg['data'] = $this->db->get_where('jurnal',['id'=>$id])->row_array();
 		}
+		
+		if (empty($find_mhp)) {
+			$msg = ['status'=>'info', 'msg'=>'Saat ini anda tidak ada jam mengajar, Selamat istirahat :)'];
+		}
+
 		return $msg;
 	}
 	public function delete($id=0)

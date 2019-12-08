@@ -1,4 +1,4 @@
-<?php if (!empty($data['data'])) : ?>
+<?php if (!empty($data['data']) && is_array($data['data'])) : ?>
     <?php foreach ($data['data'] as $key => $value) : ?>
         <div class="modal fade" id="exampleModal<?= $value['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

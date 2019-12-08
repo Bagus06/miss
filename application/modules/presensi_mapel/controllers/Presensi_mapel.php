@@ -54,58 +54,42 @@ class presensi_mapel extends CI_Controller
 			break;
 		}
 		// $hari_ini = 1;
+		$username = get_user()['username'];
+		$this->db->select('id');
+		$exist = $this->db->get_where('guru', ['kode' => $username])->row_array();
+		$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
 
-
-		if($day == 'Sat' || $day == 'Sun'){
-			$data['data'] = 'Hari ini hari ' . $day . ' selamat libur.';
-			$data['day'] = $day;
-			$this->load->view('index', ['data' => $data]);
-		}else{
-
-			$username = get_user()['username'];
-			$this->db->select('id');
-			$exist = $this->db->get_where('guru', ['kode' => $username])->row_array();
-			$find_mhp = $this->db->get_where('guru_has_mapel', ['guru_id' => $exist['id'], 'hari' => $hari_ini, 'jam_mulai <' => $time, 'jam_selesai >=' => $time])->row_array();
-
-			if(!empty($find_mhp)){
-
-				$data = $this->presensi_mapel_model->save();
-				$kelas = $this->presensi_mapel_model->kelas();
-				$o_kelas = [];
-				foreach ($kelas as $key => $value) {
-					$o_kelas[$value['id']] = $value['nama'];
-				}
-				$guru = $this->presensi_mapel_model->guru();
-				$o_guru = [];
-				foreach ($guru as $key => $value) {
-					$o_guru[$value['id']] = $value['nama'];
-				}
-				$mapel = $this->presensi_mapel_model->mapel();
-				$o_mapel = [];
-				foreach ($mapel as $key => $value) {
-					$o_mapel[$value['id']] = $value['nama'];
-				}
-
-				$k = $find_mhp['kelas_id'];
-				$tanggal = date('Y-m-d');
-
-				$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
-				$data['data'] = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
-				$presensi = $this->db->get_where('presensi_has_mapel', ['kelas_id' => $k, 'kode' => $kode])->result_array();
-				$ket = [
-					'0' => ['id' => '0', 'title' => '-', 'color' => 'btn-info'],
-					'1' => ['id' => '1', 'title' => 'Berangkat', 'color' => 'btn-primary'],
-					'2' => ['id' => '2', 'title' => 'Ijin', 'color' => 'btn-warning'],
-					'3' => ['id' => '3', 'title' => 'Alasan', 'color' => 'btn-danger'],
-				];
-
-				$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas, 'guru' => $o_guru, 'mapel' => $o_mapel, 'find_mhp' => $find_mhp]);
-
-			}else{
-				$data['data'] = 'presensi null';
-				$this->load->view('index', ['data' => $data]);
-			}
+		$data = $this->presensi_mapel_model->save();
+		$kelas = $this->presensi_mapel_model->kelas();
+		$o_kelas = [];
+		foreach ($kelas as $key => $value) {
+			$o_kelas[$value['id']] = $value['nama'];
 		}
+		$guru = $this->presensi_mapel_model->guru();
+		$o_guru = [];
+		foreach ($guru as $key => $value) {
+			$o_guru[$value['id']] = $value['nama'];
+		}
+		$mapel = $this->presensi_mapel_model->mapel();
+		$o_mapel = [];
+		foreach ($mapel as $key => $value) {
+			$o_mapel[$value['id']] = $value['nama'];
+		}
+
+		$k = $find_mhp['kelas_id'];
+		$tanggal = date('Y-m-d');
+
+		$kode = $find_mhp['guru_id'] . '_' . $find_mhp['mapel_id'] . '_' . $tanggal . '_' . $find_mhp['jam_mulai'] . '_' . $find_mhp['jam_selesai'];
+		$data['data'] = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
+		$presensi = $this->db->get_where('presensi_has_mapel', ['kelas_id' => $k, 'kode' => $kode])->result_array();
+		$ket = [
+			'0' => ['id' => '0', 'title' => '-', 'color' => 'btn-info'],
+			'1' => ['id' => '1', 'title' => 'Berangkat', 'color' => 'btn-primary'],
+			'2' => ['id' => '2', 'title' => 'Ijin', 'color' => 'btn-warning'],
+			'3' => ['id' => '3', 'title' => 'Alasan', 'color' => 'btn-danger'],
+		];
+
+		$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas, 'guru' => $o_guru, 'mapel' => $o_mapel, 'find_mhp' => $find_mhp, 'day' => $day]);
 	}
 	public function delete($id = 0)
 	{

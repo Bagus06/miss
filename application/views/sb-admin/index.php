@@ -6,9 +6,7 @@
 </head>
 
 <body id="page-top">
-  <?php if (is_root() || is_admin() || is_petugas()): ?>
-    <?php $this->load->view('sb-admin/nav-menu') ?>
-  <?php endif ?>
+  <?php $this->load->view('sb-admin/nav-menu') ?>
   <div id="wrapper">
     <?php if (is_root() || is_admin() || is_petugas()): ?>
       <?php $this->load->view('sb-admin/sidebar') ?>

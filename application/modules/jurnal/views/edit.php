@@ -1,13 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div class="col-md-12">
-	<?php if (!empty($data['msg'])): ?>
-		<?php echo alert($data['status'],$data['msg']) ?>
-		<?php if (!empty($data['msgs'])): ?>
-			<?php foreach ($data['msgs'] as $key => $value): ?>
-					<?php echo alert($data['status'], $value) ?>
-				<?php endforeach ?>	
-		<?php endif ?>
-	<?php endif ?>
 	<?php if (!empty($guru_has_mapel)): ?>
 			<h4>Kelas (<?php echo @$kelas[$guru_has_mapel['kelas_id']] ?>)</h4>
 			<h6>Guru (<?php echo @$guru['nama']; ?>, <?php echo @$mapel[$guru_has_mapel['mapel_id']] ?>, Jam <?php echo @$guru_has_mapel['jam_mulai'] ?> - <?php echo @$guru_has_mapel['jam_selesai'] ?>)</h6>
@@ -34,6 +26,13 @@
 				</div>
 			</form>
 	<?php else: ?>
-		Saatnya istirahat
+		<?php if (!empty($data['msg'])): ?>
+			<?php echo alert($data['status'],$data['msg']) ?>
+			<?php if (!empty($data['msgs'])): ?>
+				<?php foreach ($data['msgs'] as $key => $value): ?>
+						<?php echo alert($data['status'], $value) ?>
+					<?php endforeach ?>	
+			<?php endif ?>
+		<?php endif ?>
 	<?php endif ?>
 </div>

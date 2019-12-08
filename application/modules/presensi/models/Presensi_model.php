@@ -37,69 +37,75 @@ class presensi_model extends CI_Model
 		$tanggal = date('Y-m-d');
 		$q_rows = $this->db->get_where('siswa', ['kelas_id' => $k,])->num_rows();
 		$presensi_rows = $this->db->get_where('presensi', ['kelas_id' => $k, 'tanggal' => $tanggal])->num_rows();
-		if (!empty($this->input->post())) {
-			$msg = ['status' => 'danger', 'msg' => 'presensi gagal disimpan, silahkan mengulang kembali'];
-			$id_s = $this->input->post('siswa_id');
-			$this->db->select('id');
-			$id = $this->db->get_where('presensi', ['siswa_id' => $id_s, 'tanggal' => $tanggal])->row_array();
-			$id = $id['id'];
-			$data = $this->input->post();
-			$presensi_input = [
-				'siswa_id' => $data['siswa_id'],
-				'kelas_id' => $data['kelas_id'],
-				'th_ajaran_id' => $c_th['id'],
-				'keterangan' => $data['keterangan'],
-				'tanggal' => $tanggal
-			];
-			if ($q_rows != $presensi_rows) {
-				$this->db->delete('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')]);
-				foreach ($q as $key => $value) {
-					$presensi_input = [
-						'siswa_id' => $value['id'],
-						'kelas_id' => $value['kelas_id'],
-						'th_ajaran_id' => $c_th['id'],
-						'keterangan' => '0',
-						'tanggal' => $tanggal
-					];
-					$this->db->insert('presensi', $presensi_input);
-				}
-			} else {
-				if (!empty($id)) {
-					$this->db->select('id');
-					$exist = $this->db->get_where('presensi', ['siswa_id' => $id_s, 'tanggal' => $tanggal])->row_array();
-					$current_user = $this->db->get_where('presensi', ['id' => $id])->row_array();
-					if ($current_user['id'] == $exist['id'] || empty($exist)) {
-						$this->db->where('id', $id);
-						if ($this->db->update('presensi', $presensi_input)) {
-							$msg = ['status' => 'success', 'msg' => 'presensi berhasil disimpan'];
-						}
-					} else {
-						$msg['msgs'][] = 'Gagal edit presensi u';
+
+		$day = date ('D');					
+		if($day == 'Sat' || $day == 'Sun') {
+			$msg = ['status' => 'info', 'msg' => 'Hari ini libur, selamat istirahat :)'];
+		}else{
+			if (!empty($this->input->post())) {
+				$msg = ['status' => 'danger', 'msg' => 'presensi gagal disimpan, silahkan mengulang kembali'];
+				$id_s = $this->input->post('siswa_id');
+				$this->db->select('id');
+				$id = $this->db->get_where('presensi', ['siswa_id' => $id_s, 'tanggal' => $tanggal])->row_array();
+				$id = $id['id'];
+				$data = $this->input->post();
+				$presensi_input = [
+					'siswa_id' => $data['siswa_id'],
+					'kelas_id' => $data['kelas_id'],
+					'th_ajaran_id' => $c_th['id'],
+					'keterangan' => $data['keterangan'],
+					'tanggal' => $tanggal
+				];
+				if ($q_rows != $presensi_rows) {
+					$this->db->delete('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')]);
+					foreach ($q as $key => $value) {
+						$presensi_input = [
+							'siswa_id' => $value['id'],
+							'kelas_id' => $value['kelas_id'],
+							'th_ajaran_id' => $c_th['id'],
+							'keterangan' => '0',
+							'tanggal' => $tanggal
+						];
+						$this->db->insert('presensi', $presensi_input);
 					}
 				} else {
-					$this->db->select('id');
-					$exist =  $this->db->get_where('presensi', ['siswa_id' => $id_s, 'tanggal' => $tanggal])->row_array();
-					if (empty($exist)) {
-						if ($this->db->insert('presensi', $presensi_input)) {
-							$msg = ['status' => 'success', 'msg' => 'presensi berhasil disimpan'];
+					if (!empty($id)) {
+						$this->db->select('id');
+						$exist = $this->db->get_where('presensi', ['siswa_id' => $id_s, 'tanggal' => $tanggal])->row_array();
+						$current_user = $this->db->get_where('presensi', ['id' => $id])->row_array();
+						if ($current_user['id'] == $exist['id'] || empty($exist)) {
+							$this->db->where('id', $id);
+							if ($this->db->update('presensi', $presensi_input)) {
+								$msg = ['status' => 'success', 'msg' => 'presensi berhasil disimpan'];
+							}
+						} else {
+							$msg['msgs'][] = 'Gagal edit presensi u';
 						}
 					} else {
-						$msg['msgs'][] = 'Gagal tambah presensi siswa t';
+						$this->db->select('id');
+						$exist =  $this->db->get_where('presensi', ['siswa_id' => $id_s, 'tanggal' => $tanggal])->row_array();
+						if (empty($exist)) {
+							if ($this->db->insert('presensi', $presensi_input)) {
+								$msg = ['status' => 'success', 'msg' => 'presensi berhasil disimpan'];
+							}
+						} else {
+							$msg['msgs'][] = 'Gagal tambah presensi siswa t';
+						}
 					}
 				}
-			}
-		} elseif (empty($this->input->post())) {
-			if ($q_rows != $presensi_rows) {
-				$this->db->delete('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')]);
-				foreach ($q as $key => $value) {
-					$presensi_input = [
-						'siswa_id' => $value['id'],
-						'kelas_id' => $value['kelas_id'],
-						'th_ajaran_id' => $c_th['id'],
-						'keterangan' => '0',
-						'tanggal' => $tanggal
-					];
-					$this->db->insert('presensi', $presensi_input);
+			} elseif (empty($this->input->post())) {
+				if ($q_rows != $presensi_rows) {
+					$this->db->delete('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')]);
+					foreach ($q as $key => $value) {
+						$presensi_input = [
+							'siswa_id' => $value['id'],
+							'kelas_id' => $value['kelas_id'],
+							'th_ajaran_id' => $c_th['id'],
+							'keterangan' => '0',
+							'tanggal' => $tanggal
+						];
+						$this->db->insert('presensi', $presensi_input);
+					}
 				}
 			}
 		}

@@ -37,28 +37,22 @@ class presensi extends CI_Controller
 
 	public function edit($id = 0)
 	{
-		$day = date ('D');
-		if($day == 'Sat' || $day == 'Sun'){
-			$data['data'] = 'Hari ini hari ' . $day . ' selamat libur.';
-			$this->load->view('index', ['data' => $data]);
-		}else{
-			$data = $this->presensi_model->save();
-			$kelas = $this->presensi_model->kelas();
-			$o_kelas = [];
-			foreach ($kelas as $key => $value) {
-				$o_kelas[$value['id']] = $value['nama'];
-			}
-			$k = $this->input->get('k');
-			$data['data'] = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
-			$presensi = $this->db->get_where('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')])->result_array();
-			$ket = [
-				'0' => ['id' => '0', 'title' => '-', 'color' => 'btn-info'],
-				'1' => ['id' => '1', 'title' => 'Berangkat', 'color' => 'btn-primary'],
-				'2' => ['id' => '2', 'title' => 'Ijin', 'color' => 'btn-warning'],
-				'3' => ['id' => '3', 'title' => 'Alasan', 'color' => 'btn-danger'],
-			];
-			$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas]);
+		$data = $this->presensi_model->save();
+		$kelas = $this->presensi_model->kelas();
+		$o_kelas = [];
+		foreach ($kelas as $key => $value) {
+			$o_kelas[$value['id']] = $value['nama'];
 		}
+		$k = $this->input->get('k');
+		$data['data'] = $this->db->get_where('siswa', ['kelas_id' => $k,])->result_array();
+		$presensi = $this->db->get_where('presensi', ['kelas_id' => $k, 'tanggal' => date('Y-m-d')])->result_array();
+		$ket = [
+			'0' => ['id' => '0', 'title' => '-', 'color' => 'btn-info'],
+			'1' => ['id' => '1', 'title' => 'Berangkat', 'color' => 'btn-primary'],
+			'2' => ['id' => '2', 'title' => 'Ijin', 'color' => 'btn-warning'],
+			'3' => ['id' => '3', 'title' => 'Alasan', 'color' => 'btn-danger'],
+		];
+		$this->load->view('index', ['data' => $data, 'ket' => $ket, 'presensi' => $presensi, 'kelas' => $o_kelas]);
 	}
 	public function delete($id = 0)
 	{
