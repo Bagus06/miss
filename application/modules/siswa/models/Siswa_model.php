@@ -90,20 +90,6 @@ class Siswa_model extends CI_Model
 					if ($this->db->insert('siswa', $siswa_input)) {
 						$msg = ['status' => 'success', 'msg' => 'siswa berhasil disimpan'];
 					}
-					// $last_id = $this->db->insert_id();
-					// if (!empty($last_id)) {
-					// 	$angkatan_input['siswa_id'] = $last_id;
-					// 	$this->load->model('user/user_model');
-					// 	if ($this->db->insert('siswa_has_angkatan', $angkatan_input)) {
-					// 		$msg = ['status' => 'success', 'msg' => 'siswa berhasil disimpan'];
-					// 	} else {
-					// 		$msg = ['status' => 'danger', 'msg' => 'akun siswa gagal disimpan'];
-					// 	}
-					// // if(!empty($user_status['user_id']))
-					// // {
-					// // 	$this->db->update('siswa',['user_id'=>$user_status['user_id']],['id'=>$last_id]);
-					// // }
-					// }
 				} else {
 					$msg['msgs'][] = 'nisn sudah ada';
 				}
